@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --bg-invert: 23 23 23;
+    --selection: 229 229 229;
+    --scrollbar: 229 229 229;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: 23 23 23;
+      --bg-invert: 255 255 255;
+      --selection: 38 38 38;
+      --scrollbar: 38 38 38;
+    }
+  }
+}
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--scrollbar)) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    min-width: 32px;
+    min-height: 32px;
+    border: 5px solid transparent;
+    border-radius: 16px;
+    background-color: rgb(var(--scrollbar));
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-button,
+  ::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  ::-webkit-resizer {
+    display: none;
+  }
+
+  ::selection {
+    background: rgb(var(--selection));
+    text-shadow: none;
+    -webkit-text-decoration-color: var(--bg);
+    text-decoration-color: var(--bg);
+  }
+
+  ::-moz-selection {
+    background: var(--selection);
+    text-shadow: none;
+    text-decoration-color: var(--bg);
+  }
+
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+  }
+
+  body {
+    background: rgb(var(--bg));
+  }
+
+  header {
+    z-index: 1000;
+    background-image: radial-gradient(
+      rgb(var(--bg-invert) / 0%) 1px,
+      rgb(var(--bg) / 0.8) 1px
+    );
+    background-size: 4px 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif;
+  }
+
+  i,
+  em,
+  blockquote {
+    @apply font-serif text-lg;
+  }
+
+  svg {
+    vertical-align: middle;
+    shape-rendering: auto;
+  }
+}

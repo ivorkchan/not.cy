@@ -41,17 +41,16 @@ export async function generateMetadata({
       url: `https://not.cy${blog.slug}`,
       images: [
         {
-          url: `https://not.cy/og?width=1200&height=630&title=${blog.title}&description=${blog.description}`,
+          url: "https://not.cy/og.png",
+          width: 1200,
+          height: 630,
         },
       ],
     },
     twitter: {
       title: blog.title,
       description: blog.description,
-      creator: "@ivorkchan",
-      images: [
-        `https://not.cy/og?width=1200&height=600&title=${blog.title}&description=${blog.description}`,
-      ],
+      images: ["https://not.cy/twitter.png"],
     },
   };
 }
@@ -71,8 +70,6 @@ export default async function Blog({ params }: BlogProps) {
 
   return (
     <Article>
-      <h1>{blog.title}</h1>
-      <hr />
       <MDX code={blog.body.code} />
     </Article>
   );

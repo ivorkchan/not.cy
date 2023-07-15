@@ -11,6 +11,7 @@
     "<TYPES>^[.]",
     "",
     "^@/lib/(.*)$",
+    "^@/components/mdx/(.*)$",
     "^@/components/(.*)$",
     "^@/contents/(.*)$",
     "^@/app/(.*)$",

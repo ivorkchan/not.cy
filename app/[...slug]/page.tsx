@@ -41,17 +41,16 @@ export async function generateMetadata({
       url: `https://not.cy${page.slug}`,
       images: [
         {
-          url: `https://not.cy/og?width=1200&height=630&title=${page.title}&description=${page.description}`,
+          url: "https://not.cy/og.png",
+          width: 1200,
+          height: 630,
         },
       ],
     },
     twitter: {
       title: page.title,
       description: page.description,
-      creator: "@ivorkchan",
-      images: [
-        `https://not.cy/og?width=1200&height=600&title=${page.title}&description=${page.description}`,
-      ],
+      images: ["https://not.cy/twitter.png"],
     },
   };
 }
@@ -71,8 +70,6 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <Article>
-      <h1>{page.title}</h1>
-      <hr />
       <MDX code={page.body.code} />
     </Article>
   );

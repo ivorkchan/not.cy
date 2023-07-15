@@ -4,18 +4,29 @@ import React from "react";
 import Link from "next/link";
 
 import { useMDXComponent as useMDX } from "next-contentlayer/hooks";
+import Balancer from "react-wrap-balancer";
 
-import { BlogList } from "@/components/mdx/BlogList";
 import { Callout } from "@/components/mdx/Callout";
 import { Date } from "@/components/mdx/Date";
 import { Graphic } from "@/components/mdx/Graphic";
+import { Badge, Blog, Craft } from "@/components/index";
+
+type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
+type AnchorProps = React.HTMLProps<HTMLAnchorElement>;
 
 const components = {
-  BlogList,
   Callout,
   Date,
   Graphic,
-  a: (props: React.HTMLProps<HTMLAnchorElement>) => {
+  Badge,
+  Blog,
+  Craft,
+  h1: ({ children }: HeadingProps) => (
+    <h1>
+      <Balancer>{children}</Balancer>
+    </h1>
+  ),
+  a: (props: AnchorProps) => {
     const href = props.href;
     const isInternalLink = href && href.startsWith("/");
 

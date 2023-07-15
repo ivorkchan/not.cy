@@ -10,18 +10,15 @@ export async function GET() {
   });
 
   const blogs = allBlogs.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   blogs.forEach((blog) => {
     feed.item({
       title: blog.title,
-      description: blog.description ?? "",
+      description: blog.description,
       date: new Date(blog.date),
-      url: `https://not.cy/${blog.slug}`,
-      enclosure: {
-        url: `https://not.cy/og?width=1200&height=630&title=${blog.title}&description=${blog.description}`,
-      },
+      url: `https://not.cy${blog.slug}`,
     });
   });
 

@@ -6,35 +6,51 @@ import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 
 import { cn } from "@/lib/utils";
+import { Nav } from "@/components/nav";
 import { Provider } from "@/components/provider";
-import { Footer } from "@/components/ui/Footer";
-import { Header } from "@/components/ui/Header";
 
 import "@/styles/global.css";
 
-const fira_code = Fira_Code({
-  variable: "--font-fira-code",
+const font_mono = Fira_Code({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
-const spectral = Spectral({
-  variable: "--font-spectral",
-  weight: ["400", "700", "800"],
-  style: ["normal", "italic"],
+const font_serif = Spectral({
+  variable: "--font-serif",
   subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
 const font_cn = localFont({
   src: [
-    { path: "../public/fonts/HYXinRenWenSong55W.woff2", style: "normal" },
-    { path: "../public/fonts/HYXinRenWenSong55W.woff2", style: "italic" },
+    {
+      path: "../public/fonts/FZYouHK_508R.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/FZYouHK_508R.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/FZYouHK_512B.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/FZYouHK_512B.woff2",
+      weight: "700",
+      style: "italic",
+    },
   ],
   variable: "--font-cn",
 });
 
 export const metadata: Metadata = {
-  title: "Ivork Chan",
-  description: "Sensibility is the end of rationality.",
+  metadataBase: new URL("https://not.cy"),
   keywords: ["Ivork Chan", "CHENG Yue"],
   authors: [
     {
@@ -51,18 +67,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  openGraph: {
-    title: "Ivork Chan",
-    description: "Sensibility is the end of rationality.",
-    url: "https://not.cy",
-    images: [{ url: "https://not.cy/og" }],
-  },
-  twitter: {
-    title: "Ivork Chan",
-    description: "Sensibility is the end of rationality.",
-    creator: "@ivorkchan",
-    images: ["https://not.cy/og"],
-  },
 };
 
 export default function RootLayout({
@@ -76,15 +80,18 @@ export default function RootLayout({
       <body
         className={cn(
           "font-sans",
-          fira_code.variable,
-          spectral.variable,
-          font_cn.variable
+          font_mono.variable,
+          font_serif.variable,
+          font_cn.variable,
         )}
       >
         <Provider>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <main>
+            <div className="main-grid">
+              <Nav />
+              {children}
+            </div>
+          </main>
         </Provider>
         <Analytics />
       </body>

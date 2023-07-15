@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { allBlogs } from "contentlayer/generated";
+import { allBlogs, allCrafts } from "contentlayer/generated";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticUrls = [
@@ -18,12 +18,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
 
     return {
-      url: `https://not.cy/${blog.slugAsParams}`,
+      url: `https://not.cy${blog.slug}`,
       lastModified,
     };
   });
 
-  const urls = [...staticUrls, ...blogUrls];
+  const craftUrls = allCrafts.map((craft) => {
+    let lastModified;
+    try {
+      const date = new Date(craft.date);
+      lastModified = date.toISOString();
+    } catch (error) {
+      console.warn(`Invalid date in craft: ${craft}`);
+    }
+
+    return {
+      url: `https://not.cy${craft.slug}`,
+      lastModified,
+    };
+  });
+
+  const urls = [...staticUrls, ...blogUrls, ...craftUrls];
 
   return urls;
 }

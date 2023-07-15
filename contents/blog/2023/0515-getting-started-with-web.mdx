@@ -1,0 +1,95 @@
+---
+title: Getting Started with Web
+description: Behind the scenes of this minimal blog.
+date: 2023-05-15
+---
+
+<Date date="2023-05-15" />
+
+# Getting Started with Web
+
+<Callout>
+Ongoing. I’ll keep updating this.
+
+</Callout>
+
+While building my portfolio back in 2021, I explored user-friendly tools like Cargo, Framer, and Webflow.
+
+Last year, I discovered Vercel and Next.js, starting my journey with the official repository. Without prior experience, I built a simple [website](https://blog.ivorkchan.vercel.app/), then created several [widgets](https://blog-tw.ivorkchan.vercel.app/collection) fetching data from Notion and NeoDB.
+
+[Nobelium](https://github.com/craigary/nobelium) resonated with my needs. After removing unneeded features, I refined the [styles](https://blog-nobelium.ivorkchan.vercel.app/blog/debug). However, I came across an issue where text sections were cut off in WebKit browsers:
+
+<Graphic src="/images/2023/safari-bug.png" alt="Below: Safari on Mac" />
+
+Here’s the CSS code:
+
+```css
+.notion em {
+  @apply font-serif;
+
+  font-size: calc(1rem + 2px);
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+```
+
+Unexpectedly, disabling the `opacity` setting resolved the problem.
+
+## Behind the Scenes
+
+This website is inspired by:
+
+- [Paco Coursey](https://paco.me/)
+- [Shu Ding](https://shud.in/)
+- [Anthony Fu](https://antfu.me/)
+- [Brian Lovin](https://brianlovin.com/)
+- [Lee Robinson](https://leerob.io/)
+- [Guillermo Rauch](https://rauchg.com/)
+- [Rauno Freiberg](https://rauno.me/)
+- [Tom MacWright](https://macwright.com/)
+- [shadcn](https://shadcn.com/)
+- [Eric Zhang](https://www.ekzhang.com/)
+
+My utmost appreciation for their contributions and sharing. There are many others I forgot to mention, view more on [Are.na](https://www.are.na/ivork-chan/website-pshf22fuxwy) and [GitHub](https://github.com/stars/ivorkchan/lists/blog).
+
+## Web Typography
+
+About [web font styling](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized):
+
+```css
+html {
+  font-synthesis: none;
+  font-optical-sizing: auto;
+  text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  orphans: 3;
+  widows: 3;
+  -webkit-hyphens: auto;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
+  -webkit-hyphenate-limit-chars: 8 4 4;
+  -webkit-hyphenate-limit-lines: 2;
+  -webkit-hyphenate-limit-last: always;
+  -webkit-hyphenate-limit-zone: 8%;
+  hyphens: auto;
+  hyphenate-limit-chars: 8 4 4;
+  hyphenate-limit-lines: 2; // not supported yet
+  hyphenate-limit-last: always; // not supported yet
+  hyphenate-limit-zone: 8%; // not supported yet
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+```
+
+Tools and guides:
+
+- [fonttools](https://github.com/fonttools/fonttools)
+- [afdko](https://github.com/adobe-type-tools/afdko)
+- [FontForge](https://fontforge.org/)
+- [赫蹏（hètí）](https://github.com/sivan/heti)
+- [孔雀计划：中文字体排印的思路](https://www.thetype.com/kongque/)
+- [React Wrap Balancer](https://react-wrap-balancer.vercel.app/)
+- [Web Typography](https://book.webtypography.net/)
+- [Hyphenopoly](https://mnater.github.io/Hyphenopoly/)

@@ -4,18 +4,16 @@
 
 @layer base {
   :root {
-    --bg: 255 255 255;
-    --bg-invert: 23 23 23;
-    --selection: 229 229 229;
-    --scrollbar: 229 229 229;
+    --bg: rgb(255 255 255);
+    --fg: rgb(64 64 64);
+    --mute: rgb(229 229 229);
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: 23 23 23;
-      --bg-invert: 255 255 255;
-      --selection: 38 38 38;
-      --scrollbar: 38 38 38;
+      --bg: rgb(23 23 23);
+      --fg: rgb(212 212 212);
+      --mute: rgb(64 64 64);
     }
   }
 }
@@ -23,7 +21,7 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgb(var(--scrollbar)) transparent;
+    scrollbar-color: var(--mute) transparent;
   }
 
   ::-webkit-scrollbar {
@@ -34,10 +32,10 @@
   ::-webkit-scrollbar-thumb {
     min-width: 32px;
     min-height: 32px;
+    background-color: var(--mute);
+    background-clip: padding-box;
     border: 5px solid transparent;
     border-radius: 16px;
-    background-color: rgb(var(--scrollbar));
-    background-clip: padding-box;
   }
 
   ::-webkit-scrollbar-track {
@@ -49,59 +47,134 @@
     display: none;
   }
 
-  ::-webkit-resizer {
-    display: none;
-  }
-
   ::selection {
-    background: rgb(var(--selection));
-    text-shadow: none;
-    -webkit-text-decoration-color: var(--bg);
     text-decoration-color: var(--bg);
+    background: var(--mute);
   }
+}
 
-  ::-moz-selection {
-    background: var(--selection);
-    text-shadow: none;
-    text-decoration-color: var(--bg);
-  }
-
+@layer base {
   html {
+    font-synthesis: none;
+    font-optical-sizing: auto;
+    text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    orphans: 3;
+    widows: 3;
+    -webkit-hyphens: auto;
+    -webkit-hyphenate-limit-before: 4;
+    -webkit-hyphenate-limit-after: 4;
+    -webkit-hyphenate-limit-chars: 8 4 4;
+    -webkit-hyphenate-limit-lines: 2;
+    -webkit-hyphenate-limit-last: always;
+    -webkit-hyphenate-limit-zone: 8%;
+    hyphens: auto;
+    hyphenate-limit-chars: 8 4 4;
+    hyphenate-limit-lines: 2;
+    hyphenate-limit-last: always;
+    hyphenate-limit-zone: 8%;
+    -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
 
   body {
-    background: rgb(var(--bg));
+    overflow-x: hidden;
+    overflow-y: scroll;
+    line-height: 1.75;
+    color: var(--fg);
+    background: var(--bg);
   }
 
-  header {
-    z-index: 1000;
-    background-image: radial-gradient(
-      rgb(var(--bg-invert) / 0%) 1px,
-      rgb(var(--bg) / 0.8) 1px
-    );
-    background-size: 4px 4px;
-    backdrop-filter: blur(4px);
+  main {
+    position: relative;
+    max-width: calc(24rem + 65ch);
+    min-height: 100vh;
+    padding: 10rem 0;
+    margin: 0 auto;
+  }
+}
+
+@layer components {
+  .main-grid {
+    display: grid;
+    grid-template-columns: 10rem 65ch 10rem;
+    column-gap: 2rem;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
+  .main-grid > * {
+    grid-column: 2;
+  }
+
+  h1 {
     @apply font-serif;
   }
 
   i,
   em,
   blockquote {
-    @apply font-serif text-lg;
+    @apply font-serif;
   }
 
-  svg {
-    vertical-align: middle;
-    shape-rendering: auto;
+  big {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  #blog tbody,
+  #craft tbody {
+    border-block-width: 1px;
+    border-block-color: var(--tw-prose-td-borders);
+  }
+
+  #blog td,
+  #craft td {
+    padding-left: 0;
+  }
+
+  .light {
+    @apply text-neutral-400 dark:text-neutral-500;
+  }
+
+  .light-hover {
+    @apply hover:text-neutral-700 hover:dark:text-neutral-300;
+  }
+
+  @media (width <= 1024px) {
+    main {
+      padding: 0;
+    }
+
+    .main-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .main-nav {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 4rem;
+      padding: 0 1.25rem;
+      background: var(--bg);
+    }
+
+    article {
+      width: 100%;
+      padding: 6rem 1.25rem;
+    }
+  }
+
+  @media (width >= 1024px) {
+    .main-nav {
+      position: sticky;
+      top: 10rem;
+      grid-column: 1;
+      height: fit-content;
+    }
   }
 }

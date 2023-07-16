@@ -9,7 +9,7 @@ date: 2023-05-15
 # Getting Started with Web
 
 <Callout>
-Ongoing. I’ll keep updating this.
+Ongoing.
 
 </Callout>
 
@@ -52,6 +52,8 @@ This website is inspired by:
 
 My utmost appreciation for their contributions and sharing. There are many others I forgot to mention, view more on [Are.na](https://www.are.na/ivork-chan/website-pshf22fuxwy) and [GitHub](https://github.com/stars/ivorkchan/lists/blog).
 
+The [source code](https://github.com/ivorkchan/not.cy) is also available.
+
 ## Web Typography
 
 About [web font styling](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized):
@@ -83,7 +85,7 @@ html {
 }
 ```
 
-Tools and guides:
+### Tools and Guides
 
 - [fonttools](https://github.com/fonttools/fonttools)
 - [afdko](https://github.com/adobe-type-tools/afdko)
@@ -93,3 +95,43 @@ Tools and guides:
 - [React Wrap Balancer](https://react-wrap-balancer.vercel.app/)
 - [Web Typography](https://book.webtypography.net/)
 - [Hyphenopoly](https://mnater.github.io/Hyphenopoly/)
+
+### Font Declarations
+
+Besides, there’s [a handy tool](https://screenspan.net/fallback) for the generation of fallback fonts. I mainly use it to adjust font declarations, which guarantees a harmonious pairing between the serif and sans-serif fonts.
+
+```tsx
+// app/layout.tsx
+
+import localFont from "next/font/local";
+
+const font_serif = localFont({
+  {/* other codes */}
+  declarations: [
+    { prop: "size-adjust", value: "107%" },
+    { prop: "ascent-override", value: "84%" },
+    { prop: "descent-override", value: "23%" },
+    { prop: "line-gap-override", value: "0%" },
+  ],
+});
+```
+
+For example, below is a normal paragraph with some _italic styling_:
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. _Praesent iaculis lorem sed nunc volutpat convallis. Morbi porttitor diam vel pellentesque gravida. Quisque vitae consequat ipsum._ Donec vel lobortis dolor.
+
+> This is a blockquote example with the serif font “Spectral”:
+>
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis lorem sed nunc volutpat convallis. Morbi porttitor diam vel pellentesque gravida. Quisque vitae consequat ipsum.
+>
+> 以及中文。设备如安装了「楷体」或「华文楷体」，则会优先显示。
+
+中文示例：
+
+这是一段正常文本。
+
+**这是一段粗体文本。**
+
+_这是一段斜体文本。_
+
+至于 [Safari 上的系统字体不能正常显示](https://stackoverflow.com/questions/52692905/font-family-display-issue-in-safari-12-on-macos-mojave)，是个极其恼人的问题。并非每个 Mac 用户都会使用第三方浏览器，想保证网页显示效果就最好内置字体，而 GBK 标准字库非常臃肿。

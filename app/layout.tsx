@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import { Fira_Code, Spectral } from "next/font/google";
+import { Fira_Code } from "next/font/google";
 import localFont from "next/font/local";
 
 import { Analytics } from "@vercel/analytics/react";
@@ -16,11 +16,36 @@ const font_mono = Fira_Code({
   subsets: ["latin"],
 });
 
-const font_serif = Spectral({
+const font_serif = localFont({
+  src: [
+    {
+      path: "../public/fonts/Spectral-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Spectral-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../public/fonts/Spectral-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Spectral-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+  ],
   variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  declarations: [
+    { prop: "size-adjust", value: "107%" },
+    { prop: "ascent-override", value: "84%" },
+    { prop: "descent-override", value: "23%" },
+    { prop: "line-gap-override", value: "0%" },
+  ],
 });
 
 const font_cn = localFont({

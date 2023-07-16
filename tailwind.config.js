@@ -22,15 +22,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          "-apple-system",
-          "'Arial'",
-          "'PingFang SC'",
-          "var(--font-cn)",
-          ...fontFamily.sans,
-        ],
+        sans: ["Arial", "'PingFang SC'", "var(--font-cn)", ...fontFamily.sans],
         serif: [
           "var(--font-serif)",
+          "KaiTi",
+          "STKaiti",
+          "'Kaiti SC'",
           "'PingFang SC'",
           "var(--font-cn)",
           ...fontFamily.serif,
@@ -69,22 +66,9 @@ module.exports = {
                 textDecorationColor: "var(--tw-prose-links)",
               },
             },
-            i: {
-              fontSize: em(17.5, 16),
-              lineHeight: round(28 / 17.5),
-            },
-            em: {
-              fontSize: em(17.5, 16),
-              lineHeight: round(28 / 17.5),
-            },
-            blockquote: {
-              fontSize: em(17.5, 16),
-              lineHeight: round(28 / 17.5),
-            },
             h1: {
               fontSize: em(32, 16),
-              marginTop: "0",
-              marginBottom: em(28, 32),
+              marginBottom: em(32, 32),
               lineHeight: round(36 / 32),
             },
             table: {
@@ -103,7 +87,7 @@ module.exports = {
               paddingLeft: em(12, 16),
             },
             code: {
-              fontWeight: 450,
+              fontWeight: 400,
               color: "var(--tw-prose-code)",
               background: "var(--tw-prose-pre-bg)",
               borderRadius: "4px",
@@ -113,6 +97,16 @@ module.exports = {
               content: "",
             },
             "code::after": {
+              content: "",
+            },
+            blockquote: {
+              fontWeight: 400,
+              quotes: "none",
+            },
+            "blockquote p:first-of-type::before": {
+              content: "",
+            },
+            "blockquote p:last-of-type::after": {
               content: "",
             },
           },

@@ -63,7 +63,6 @@
     -moz-osx-font-smoothing: grayscale;
     orphans: 3;
     widows: 3;
-    -webkit-hyphens: auto;
     -webkit-hyphenate-limit-before: 4;
     -webkit-hyphenate-limit-after: 4;
     -webkit-hyphenate-limit-chars: 8 4 4;
@@ -114,7 +113,7 @@
   i,
   em,
   blockquote {
-    @apply font-serif;
+    @apply font-serif italic;
   }
 
   big {

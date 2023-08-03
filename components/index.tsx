@@ -1,17 +1,5 @@
-import Link from "next/link";
-
 import { allBlogs, allCrafts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
-
-export function Badge() {
-  return (
-    <p>
-      <big>Ivork Chan</big>
-      <br />
-      <span className="light">Behold & Voyage & Innovate</span>
-    </p>
-  );
-}
 
 function groupByYear(data) {
   const groups = data.reduce((groups, item) => {
@@ -36,7 +24,7 @@ function sortYears(years) {
   return Object.keys(years).sort((a, b) => Number(b) - Number(a));
 }
 
-export function ContentTable({ data, id }) {
+function ContentTable({ data, id }) {
   const groupedByYear = groupByYear(data);
   const sortedYears = sortYears(groupedByYear);
 
@@ -56,12 +44,12 @@ export function ContentTable({ data, id }) {
                 </td>
               )}
               <td>
-                <Link
+                <a
                   href={item.slug}
                   className="light light-hover no-underline transition"
                 >
                   {item.title}
-                </Link>
+                </a>
               </td>
             </tr>
           ));

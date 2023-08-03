@@ -6,14 +6,15 @@
   :root {
     --bg: rgb(255 255 255);
     --fg: rgb(64 64 64);
-    --mute: rgb(229 229 229);
+    --muted: rgb(229 229 229);
+    --prose-width: 65ch;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: rgb(23 23 23);
       --fg: rgb(212 212 212);
-      --mute: rgb(64 64 64);
+      --muted: rgb(64 64 64);
     }
   }
 }
@@ -21,7 +22,7 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--mute) transparent;
+    scrollbar-color: var(--muted) transparent;
   }
 
   ::-webkit-scrollbar {
@@ -32,7 +33,7 @@
   ::-webkit-scrollbar-thumb {
     min-width: 32px;
     min-height: 32px;
-    background-color: var(--mute);
+    background-color: var(--muted);
     background-clip: padding-box;
     border: 5px solid transparent;
     border-radius: 16px;
@@ -49,7 +50,7 @@
 
   ::selection {
     text-decoration-color: var(--bg);
-    background: var(--mute);
+    background: var(--muted);
   }
 }
 
@@ -88,7 +89,7 @@
 
   main {
     position: relative;
-    max-width: calc(24rem + 65ch);
+    max-width: calc(50ch + var(--prose-width));
     min-height: 100vh;
     padding: 10rem 0;
     margin: 0 auto;
@@ -98,16 +99,41 @@
 @layer components {
   .main-grid {
     display: grid;
-    grid-template-columns: 10rem 65ch 10rem;
-    column-gap: 2rem;
+    grid-template-columns: 20ch var(--prose-width) 20ch;
+    column-gap: 5ch;
   }
 
   .main-grid > * {
     grid-column: 2;
   }
 
-  h1 {
-    @apply font-serif;
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    font-family:
+      ui-sans-serif,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Arial,
+      "Helvetica Neue",
+      Helvetica,
+      "Noto Sans",
+      "Source Sans Pro",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      var(--font-hei),
+      "Microsoft YaHei",
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji",
+      emoji,
+      math;
   }
 
   i,
@@ -116,15 +142,10 @@
     @apply font-serif italic;
   }
 
-  big {
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
   #blog tbody,
   #craft tbody {
     border-block-width: 1px;
-    border-block-color: var(--tw-prose-td-borders);
+    border-block-color: var(--tw-prose-hr);
   }
 
   #blog td,
@@ -140,6 +161,42 @@
     @apply hover:text-neutral-700 hover:dark:text-neutral-300;
   }
 
+  .co code {
+    @apply p-0 bg-transparent text-inherit;
+  }
+
+  .co code::before {
+    content: "`";
+  }
+
+  .co code::after {
+    content: "`";
+  }
+
+  .co-info {
+    @apply text-blue-900 bg-blue-100 dark:text-blue-200 dark:bg-blue-900/30;
+  }
+
+  .co-info ::selection {
+    @apply bg-blue-200 dark:bg-blue-900/60;
+  }
+
+  .co-warn {
+    @apply text-yellow-900 bg-yellow-100 dark:text-yellow-200 dark:bg-yellow-900/30;
+  }
+
+  .co-warn ::selection {
+    @apply bg-yellow-200 dark:bg-yellow-900/60;
+  }
+
+  .co-error {
+    @apply text-red-900 bg-red-100 dark:text-red-200 dark:bg-red-900/30;
+  }
+
+  .co-error ::selection {
+    @apply bg-red-200 dark:bg-red-900/60;
+  }
+
   @media (width <= 1024px) {
     main {
       padding: 0;
@@ -152,19 +209,16 @@
     }
 
     .main-nav {
-      position: sticky;
-      top: 0;
       display: flex;
       align-items: center;
       width: 100%;
       height: 4rem;
       padding: 0 1.25rem;
-      background: var(--bg);
     }
 
     article {
       width: 100%;
-      padding: 6rem 1.25rem;
+      padding: 4rem 1.25rem 8rem;
     }
   }
 

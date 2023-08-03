@@ -1,12 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
-
-const round = (num) =>
-  num
-    .toFixed(7)
-    .replace(/(\.[0-9]+?)0+$/, "$1")
-    .replace(/\.0$/, "");
-const em = (px, base) => `${round(px / base)}em`;
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -15,24 +7,59 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./contents/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   future: {
     hoverOnlyWhenSupported: true,
   },
-  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Arial", "'PingFang SC'", "var(--font-cn)", ...fontFamily.sans],
+        sans: [
+          "Arial",
+          "ui-sans-serif",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "'Helvetica Neue'",
+          "Helvetica",
+          "'Segoe UI'",
+          "'Noto Sans'",
+          "'Source Sans Pro'",
+          "Roboto",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "var(--font-hei)",
+          "'Microsoft YaHei'",
+          "sans-serif",
+          "'Apple Color Emoji'",
+          "'Segoe UI Emoji'",
+          "'Segoe UI Symbol'",
+          "'Noto Color Emoji'",
+          "emoji",
+          "math",
+        ],
         serif: [
+          "ui-serif",
+          "-apple-system-ui-serif",
           "var(--font-serif)",
+          "'Noto Serif'",
+          "'Source Serif Pro'",
+          "serif",
+          "var(--font-kai-punc)",
+          "var(--font-kai)",
           "KaiTi",
           "STKaiti",
-          "'Kaiti SC'",
-          "'PingFang SC'",
-          "var(--font-cn)",
-          ...fontFamily.serif,
+          "fangsong",
         ],
-        mono: ["var(--font-mono)", ...fontFamily.mono],
+        mono: [
+          "ui-monospace",
+          "-apple-system-monospace",
+          "var(--font-mono)",
+          "'Sarasa Mono SC'",
+          "'Sarasa Mono TC'",
+          "'Sarasa Mono HC'",
+          "monospace",
+        ],
       },
       typography: {
         neutral: {
@@ -42,56 +69,73 @@ module.exports = {
             "--tw-prose-pre-bg": colors.neutral[100],
             "--tw-prose-th-borders": colors.neutral[200],
             "--tw-prose-td-borders": colors.neutral[200],
+            "--tw-prose-captions": colors.neutral[400],
             "--tw-prose-invert-code": colors.neutral[300],
             "--tw-prose-invert-pre-code": colors.neutral[300],
             "--tw-prose-invert-pre-bg": colors.neutral[800],
             "--tw-prose-invert-th-borders": colors.neutral[700],
             "--tw-prose-invert-td-borders": colors.neutral[700],
+            "--tw-prose-invert-captions": colors.neutral[500],
           },
         },
         DEFAULT: {
           css: {
+            maxWidth: "var(--prose-width)",
             hr: {
-              marginTop: em(32, 16),
-              marginBottom: em(32, 16),
               opacity: 0,
+            },
+            h1: {
+              fontSize: "2rem",
+              marginTop: "0",
+              marginBottom: "4rem",
+              lineHeight: "2.5rem",
+              fontWeight: "900",
+            },
+            h2: {
+              fontSize: "1.5rem",
+              marginTop: "3rem",
+              marginBottom: "1.25rem",
+              lineHeight: "2rem",
+              fontWeight: "800",
+            },
+            h3: {
+              fontSize: "1.125rem",
+              marginTop: "2rem",
+              marginBottom: "1.25rem",
+              lineHeight: "1.5rem",
+              fontWeight: "700",
             },
             a: {
               color: "var(--tw-prose-body)",
               fontWeight: 400,
               textDecorationColor: "var(--tw-prose-hr)",
-              textUnderlineOffset: "4px",
+              textUnderlineOffset: "2px",
               transition: "150ms",
               "&:hover": {
                 textDecorationColor: "var(--tw-prose-links)",
               },
             },
-            h1: {
-              fontSize: em(32, 16),
-              marginBottom: em(32, 32),
-              lineHeight: round(36 / 32),
-            },
             table: {
-              fontSize: em(16, 16),
-              lineHeight: round(28 / 16),
+              fontSize: "1rem",
+              lineHeight: "1.75rem",
             },
             "thead th": {
-              paddingRight: em(12, 16),
-              paddingBottom: em(12, 16),
-              paddingLeft: em(12, 16),
+              paddingRight: "0.75rem",
+              paddingBottom: "0.75rem",
+              paddingLeft: "0.75rem",
             },
             "tbody td, tfoot td": {
-              paddingTop: em(12, 16),
-              paddingRight: em(12, 16),
-              paddingBottom: em(12, 16),
-              paddingLeft: em(12, 16),
+              paddingTop: "0.75rem",
+              paddingRight: "0.75rem",
+              paddingBottom: "0.75rem",
+              paddingLeft: "0.75rem",
             },
             code: {
-              fontWeight: 400,
               color: "var(--tw-prose-code)",
               background: "var(--tw-prose-pre-bg)",
-              borderRadius: "4px",
+              fontWeight: 400,
               padding: "2px 4px",
+              borderRadius: "4px",
             },
             "code::before": {
               content: "",

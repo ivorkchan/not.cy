@@ -1,4 +1,4 @@
-import { allBlogs } from "contentlayer/generated";
+import { allBlogs, allCrafts } from "contentlayer/generated";
 import RSS from "rss";
 
 export async function GET() {
@@ -9,16 +9,18 @@ export async function GET() {
     feed_url: "https://not.cy/feed.xml",
   });
 
-  const blogs = allBlogs.sort(
+  const allContents = [...allBlogs, ...allCrafts];
+
+  const sortedContents = allContents.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
-  blogs.forEach((blog) => {
+  sortedContents.forEach((content) => {
     feed.item({
-      title: blog.title,
-      description: blog.description,
-      date: new Date(blog.date),
-      url: `https://not.cy${blog.slug}`,
+      title: content.title,
+      description: content.description,
+      date: new Date(content.date),
+      url: `https://not.cy${content.slug}`,
     });
   });
 

@@ -25,11 +25,11 @@ Here’s the CSS code:
 
 ```css
 .notion em {
-  @apply font-serif;
-
   font-size: calc(1rem + 2px);
   letter-spacing: 0;
   opacity: 0.7;
+
+  @apply font-serif;
 }
 ```
 
@@ -85,20 +85,7 @@ html {
 }
 ```
 
-### Tools and Guides
-
-- [fonttools](https://github.com/fonttools/fonttools)
-- [afdko](https://github.com/adobe-type-tools/afdko)
-- [FontForge](https://fontforge.org/)
-- [赫蹏（hètí）](https://github.com/sivan/heti)
-- [孔雀计划：中文字体排印的思路](https://www.thetype.com/kongque/)
-- [React Wrap Balancer](https://react-wrap-balancer.vercel.app/)
-- [Web Typography](https://book.webtypography.net/)
-- [Hyphenopoly](https://mnater.github.io/Hyphenopoly/)
-
-### Font Declarations
-
-Besides, there’s [a handy tool](https://screenspan.net/fallback) for the generation of fallback fonts. I mainly use it to adjust font declarations, which guarantees a harmonious pairing between the serif and sans-serif fonts.
+Besides, there’s [a handy tool](https://screenspan.net/fallback) for generating fallback fonts. I mainly use it to adjust font declarations, which guarantees a harmonious pairing between the serif and sans-serif fonts.
 
 ```tsx
 // app/layout.tsx
@@ -108,30 +95,146 @@ import localFont from "next/font/local";
 const font_serif = localFont({
   {/* other codes */}
   declarations: [
-    { prop: "size-adjust", value: "107%" },
-    { prop: "ascent-override", value: "84%" },
-    { prop: "descent-override", value: "23%" },
+    { prop: "size-adjust", value: "108%" },
+    { prop: "ascent-override", value: "85%" },
+    { prop: "descent-override", value: "22%" },
     { prop: "line-gap-override", value: "0%" },
   ],
 });
 ```
 
-For example, below is a normal paragraph with some _italic styling_:
+Here’re some tools and guides:
+
+- [fonttools](https://github.com/fonttools/fonttools)
+- [afdko](https://github.com/adobe-type-tools/afdko)
+- [FontForge](https://fontforge.org/)
+- [赫蹏（hètí）](https://github.com/sivan/heti)
+- [孔雀计划：中文字体排印的思路](https://www.thetype.com/kongque/)
+- [React Wrap Balancer](https://react-wrap-balancer.vercel.app/)
+- [Web Typography](https://book.webtypography.net/)
+- [The Punctuation Guide](https://www.thepunctuationguide.com/)
+- [Hyphenopoly](https://mnater.github.io/Hyphenopoly/)
+- [The International Phonetic Alphabet in Unicode](https://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm)
+
+### Example
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. _Praesent iaculis lorem sed nunc volutpat convallis. Morbi porttitor diam vel pellentesque gravida. Quisque vitae consequat ipsum._ Donec vel lobortis dolor.
 
-> This is a blockquote example with the serif font “Spectral”:
->
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis lorem sed nunc volutpat convallis. Morbi porttitor diam vel pellentesque gravida. Quisque vitae consequat ipsum.
->
-> 以及中文。设备如安装了「楷体」或「华文楷体」，则会优先显示。
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis lorem sed nunc volutpat convallis. Morbi porttitor diam vel pellentesque gravida. Quisque vitae consequat ipsum. Donec vel lobortis dolor.
 
-中文示例：
+## With Chinese
 
-这是一段正常文本。
+This is the font stack setting:
 
-**这是一段粗体文本。**
+```js
+// tailwind.config.js
 
-_这是一段斜体文本。_
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: [
+          "Arial",
+          "ui-sans-serif",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "'Helvetica Neue'",
+          "Helvetica",
+          "'Segoe UI'",
+          "'Noto Sans'",
+          "'Source Sans Pro'",
+          "Roboto",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "var(--font-hei)",
+          "'Microsoft YaHei'",
+          "sans-serif",
+          "'Apple Color Emoji'",
+          "'Segoe UI Emoji'",
+          "'Segoe UI Symbol'",
+          "'Noto Color Emoji'",
+          "emoji",
+          "math",
+        ],
+        serif: [
+          "ui-serif",
+          "-apple-system-ui-serif",
+          "var(--font-serif)",
+          "'Noto Serif'",
+          "'Source Serif Pro'",
+          "serif",
+          "var(--font-kai-punc)",
+          "var(--font-kai)",
+          "KaiTi",
+          "STKaiti",
+          "fangsong",
+        ],
+        mono: [
+          "ui-monospace",
+          "-apple-system-monospace",
+          "var(--font-mono)",
+          "'Sarasa Mono SC'",
+          "'Sarasa Mono TC'",
+          "'Sarasa Mono HC'",
+          "monospace",
+        ],
+      },
+    },
+  },
+};
+```
 
-至于 [Safari 上的系统字体不能正常显示](https://stackoverflow.com/questions/52692905/font-family-display-issue-in-safari-12-on-macos-mojave)，是个极其恼人的问题。并非每个 Mac 用户都会使用第三方浏览器，想保证网页显示效果就最好内置字体，而 GBK 标准字库非常臃肿。
+`--font-kai-punc` 是汉仪楷体的子集，仅包含标点符号，使用 `fonttools` 的 `subset` 库精简。设置原因是方正新楷体的标点在挤压后间距极不合理：
+
+<Graphic
+  src="/images/2023/punctuation.png"
+  alt="上图使用汉仪楷体标点，下图为方正新楷体。"
+/>
+
+### Example
+
+<Callout type="warn">
+
+To make the typeface “New York” accessible, I set `ui-serif` on my site. However, this also changes the default Chinese font. As a workaround, I manually set Kaiti for Chinese text blocks. You may notice the different fonts below on Safari.
+
+</Callout>
+
+Default style:
+
+> 用以书写的小幅绢帛，后亦借指纸。《汉书・外戚传下・孝成赵皇后》：「武（籍武）发篋中，有裹药二枚，赫蹏书。」颜师古注：「邓展曰：『赫音兄弟鬩墙之鬩。』应劭曰：『赫蹏，薄小纸也。』」宋赵彦卫《云麓漫钞》卷七：「《赵后传》所谓『赫蹏』者，注云『薄小纸』，然其寔亦縑帛。」
+
+With punctuation squeezing and Kaiti:
+
+<blockquote className="heti">
+  <p>
+    <span>用以书写的小幅绢帛，后亦借指纸</span>
+    <mark>。《</mark>
+    <span>汉书・外戚传下・孝成赵皇后</span>
+    <mark>》：「</mark>
+    <span>武（籍武）发篋中，有裹药二枚，赫蹏书</span>
+    <mark>。」</mark>
+    <span>颜师古注</span>
+    <mark>：「</mark>
+    <span>邓展曰</span>
+    <mark>：『</mark>
+    <span>赫音兄弟鬩墙之鬩</span>
+    <mark>。』</mark>
+    <span>应劭曰</span>
+    <mark>：『</mark>
+    <span>赫蹏，薄小纸也</span>
+    <mark>。』」</mark>
+    <span>宋赵彦卫《云麓漫钞》卷七</span>
+    <mark>：「《</mark>
+    <span>赵后传》所谓『赫蹏』者，注云『薄小纸</span>
+    <mark>』，</mark>
+    <span>然其寔亦縑帛</span>
+    <mark>。」</mark>
+  </p>
+</blockquote>
+
+## 题外
+
+1. 至于 [Safari 上的系统字体不能正常显示](https://stackoverflow.com/questions/52692905/font-family-display-issue-in-safari-12-on-macos-mojave)，已有讨论；
+2. 我习惯用 `&#12539;` 作间隔号，即片假名中点，保持宽度一致；
+3. 使用直角引号目的同上。

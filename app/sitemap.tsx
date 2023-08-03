@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticUrls = [
     { url: "https://not.cy/about" },
     { url: "https://not.cy/blog" },
+    { url: "https://not.cy/craft" },
+    { url: "https://not.cy/dita" },
   ];
 
   const blogUrls = allBlogs.map((blog) => {

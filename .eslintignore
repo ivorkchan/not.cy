@@ -1,12 +1,12 @@
 .cache
+.contentlayer
 .next
 build
 cache
 dist
 node_modules
-patches
-pnpm-lock.yaml
 package-lock.json
 package.json
+patches
+pnpm-lock.yaml
 public
-.contentlayer

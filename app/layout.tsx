@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { Nav } from "@/components/nav";
 import { Provider } from "@/components/provider";
 
+import "@/styles/zoom.css";
+import "@/styles/heti.css";
 import "@/styles/global.css";
 
 const font_mono = Fira_Code({
@@ -41,14 +43,14 @@ const font_serif = localFont({
   ],
   variable: "--font-serif",
   declarations: [
-    { prop: "size-adjust", value: "107%" },
-    { prop: "ascent-override", value: "84%" },
-    { prop: "descent-override", value: "23%" },
+    { prop: "size-adjust", value: "106%" },
+    { prop: "ascent-override", value: "85%" },
+    { prop: "descent-override", value: "22%" },
     { prop: "line-gap-override", value: "0%" },
   ],
 });
 
-const font_cn = localFont({
+const font_hei = localFont({
   src: [
     {
       path: "../public/fonts/FZYouHK_508R.woff2",
@@ -71,7 +73,17 @@ const font_cn = localFont({
       style: "italic",
     },
   ],
-  variable: "--font-cn",
+  variable: "--font-hei",
+});
+
+const font_kai = localFont({
+  src: "../public/fonts/FZXKTK.woff2",
+  variable: "--font-kai",
+});
+
+const font_kai_punc = localFont({
+  src: "../public/fonts/HYKaiTiS.subset.woff2",
+  variable: "--font-kai-punc",
 });
 
 export const metadata: Metadata = {
@@ -107,7 +119,9 @@ export default function RootLayout({
           "font-sans",
           font_mono.variable,
           font_serif.variable,
-          font_cn.variable,
+          font_hei.variable,
+          font_kai.variable,
+          font_kai_punc.variable,
         )}
       >
         <Provider>
@@ -119,6 +133,8 @@ export default function RootLayout({
           </main>
         </Provider>
         <Analytics />
+        <script src="/scripts/heti-addon.js" defer />
+        <script src="/scripts/heti-init.js" defer />
       </body>
     </html>
   );

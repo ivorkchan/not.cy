@@ -50,7 +50,7 @@ export async function generateMetadata({
     twitter: {
       title: blog.title,
       description: blog.description,
-      images: ["https://not.cy/twitter.png"],
+      images: ["https://not.cy/og.png"],
     },
   };
 }

@@ -1,0 +1,33 @@
+.heti {
+  font-family: var(--font-serif), var(--font-kai-punc), var(--font-kai), KaiTi,
+    STKaiti, fangsong, serif;
+}
+
+.heti heti-spacing {
+  display: inline;
+}
+
+.heti heti-spacing + sup,
+.heti heti-spacing + sub {
+  margin-inline-start: 0;
+}
+
+.heti .heti-spacing-start {
+  margin-inline-end: 0.25rem;
+}
+
+.heti .heti-spacing-end {
+  margin-inline-start: 0.25rem;
+}
+
+.heti heti-adjacent {
+  display: inline;
+}
+
+.heti .heti-adjacent-half {
+  margin-inline-end: -0.5rem;
+}
+
+.heti .heti-adjacent-quarter {
+  margin-inline-end: -0.25rem;
+}

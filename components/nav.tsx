@@ -14,53 +14,37 @@ const IconBack = (props) => (
   </svg>
 );
 
+function NavLink({ children }) {
+  return (
+    <span className="light light-hover flex gap-2 transition">
+      <IconBack className="h-7 w-3" />
+      <em>{children}</em>
+    </span>
+  );
+}
+
 export function Nav() {
   const pathname = usePathname();
 
-  let isBlog;
-  let isBlogArticle;
-  let isCraft;
-  let isCraftProject;
-  let isIndex;
-
-  isIndex = pathname.startsWith("/about");
-  isBlog = pathname.startsWith("/blog");
-  isBlogArticle =
-    pathname.startsWith("/blog/") && pathname.length > "/blog/".length;
-  isCraft = pathname.startsWith("/craft");
-  isCraftProject =
-    pathname.startsWith("/craft/") && pathname.length > "/craft/".length;
+  const isIndex = pathname === "/about";
+  const isArticle = pathname.startsWith("/blog/");
+  const isProject = pathname.startsWith("/craft/");
 
   return (
-    <nav
-      className={
-        isIndex
-          ? "main-nav prose prose-neutral opacity-0 dark:prose-invert"
-          : "main-nav prose prose-neutral dark:prose-invert"
-      }
-    >
-      {isBlogArticle && (
+    <nav className="main-nav prose prose-neutral dark:prose-invert">
+      {isArticle && (
         <Link href="/blog" className="no-underline">
-          <span className="light light-hover flex gap-2 transition">
-            <IconBack className="h-7 w-3" />
-            <em>Back to Writing</em>
-          </span>
+          <NavLink>BLOG</NavLink>
         </Link>
       )}
-      {isCraftProject && (
+      {isProject && (
         <Link href="/craft" className="no-underline">
-          <span className="light light-hover flex gap-2 transition">
-            <IconBack className="h-7 w-3" />
-            <em>Back to Design</em>
-          </span>
+          <NavLink>CRAFT</NavLink>
         </Link>
       )}
-      {(isBlog || isCraft) && !isBlogArticle && !isCraftProject && (
+      {!isIndex && !isArticle && !isProject && (
         <Link href="/about" className="no-underline">
-          <span className="light light-hover flex gap-2 transition">
-            <IconBack className="h-7 w-3" />
-            <em>Back to Index</em>
-          </span>
+          <NavLink>INDEX</NavLink>
         </Link>
       )}
     </nav>

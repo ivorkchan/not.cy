@@ -88,14 +88,14 @@ const font_kai_punc = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://not.cy"),
-  keywords: ["Ivork Chan", "CHENG Yue"],
+  keywords: ["Ivork Chan", "CHENG Yue", "Yue Cheng"],
   authors: [
     {
-      name: "Ivork Chan",
+      name: "CHENG Yue",
       url: "https://not.cy",
     },
   ],
-  creator: "Ivork Chan",
+  creator: "CHENG Yue",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#171717" },

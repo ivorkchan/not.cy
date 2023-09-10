@@ -109,7 +109,7 @@ module.exports = {
               color: "var(--tw-prose-body)",
               fontWeight: 400,
               textDecorationColor: "var(--tw-prose-hr)",
-              textUnderlineOffset: "2px",
+              textUnderlineOffset: "4px",
               transition: "150ms",
               "&:hover": {
                 textDecorationColor: "var(--tw-prose-links)",

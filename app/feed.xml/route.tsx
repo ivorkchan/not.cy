@@ -3,7 +3,7 @@ import RSS from "rss";
 
 export async function GET() {
   const feed = new RSS({
-    title: "Ivork Chan",
+    title: "CHENG Yue",
     description: "Sensibility is the end of rationality.",
     site_url: "https://not.cy",
     feed_url: "https://not.cy/feed.xml",

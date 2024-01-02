@@ -1,21 +1,50 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
+import React, { useEffect, useState } from "react";
 
 import Zoom from "react-medium-image-zoom";
 
 export function BareGraphic({ src, alt }) {
-  return (
-    <Zoom>
-      <img src={src} alt={alt} className="max-h-[56ch] rounded-md" />
-    </Zoom>
-  );
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  const image = <img src={src} alt={alt} className="max-h-[64ch] rounded-md" />;
+
+  return isLargeScreen ? <Zoom>{image}</Zoom> : image;
 }
 
 export function Graphic({ src, alt }) {
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  const image = (
+    <img src={src} alt={alt} className="!mb-0 max-h-[64ch] rounded-md" />
+  );
+
   return (
     <figure>
-      <Zoom>
-        <img src={src} alt={alt} className="!mb-0 max-h-[56ch] rounded-md" />
-      </Zoom>
+      {isLargeScreen ? <Zoom>{image}</Zoom> : image}
       <figcaption>{alt}</figcaption>
     </figure>
   );

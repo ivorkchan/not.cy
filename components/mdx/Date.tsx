@@ -1,9 +1,8 @@
-import { format, parseISO } from "date-fns";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { format, formatDistanceToNow, parseISO } from "date-fns";
 
 export function Date({ date }) {
   const parsedDate = parseISO(date);
-  return <span className="light">{format(parsedDate, "PPPP")}</span>;
+  return <span className="light">{format(parsedDate, "PPP")}</span>;
 }
 
 export function DateDistance({ date }) {

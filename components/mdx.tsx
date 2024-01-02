@@ -9,7 +9,7 @@ import Balancer from "react-wrap-balancer";
 import { Callout } from "@/components/mdx/Callout";
 import { Date, DateDistance } from "@/components/mdx/Date";
 import { BareGraphic, Graphic } from "@/components/mdx/Graphic";
-import { Blog, Craft } from "@/components/index";
+import { Blog } from "@/components/index";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 type AnchorProps = React.HTMLProps<HTMLAnchorElement>;
@@ -21,7 +21,6 @@ const components = {
   BareGraphic,
   Graphic,
   Blog,
-  Craft,
   h1: ({ children }: HeadingProps) => (
     <h1>
       <Balancer>{children}</Balancer>

@@ -52,7 +52,7 @@ export function Callout({ children, type }) {
   };
 
   return (
-    <figure className={`co rounded-md p-5 ${styles}`}>
+    <figure className={`rounded-md p-5 ${styles}`}>
       <div className="-my-5 flex gap-4">
         <div className="my-5">{iconElement()}</div>
         <div>{children}</div>

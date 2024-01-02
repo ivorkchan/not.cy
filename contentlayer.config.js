@@ -45,25 +45,7 @@ export const Blog = defineDocumentType(() => ({
   computedFields,
 }));
 
-export const Craft = defineDocumentType(() => ({
-  name: "Craft",
-  filePathPattern: `craft/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
-      type: "string",
-    },
-    description: {
-      type: "string",
-    },
-    date: {
-      type: "date",
-    },
-  },
-  computedFields,
-}));
-
 export default makeSource({
   contentDirPath: "./contents",
-  documentTypes: [Page, Blog, Craft],
+  documentTypes: [Page, Blog],
 });

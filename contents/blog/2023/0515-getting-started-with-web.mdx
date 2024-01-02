@@ -27,6 +27,12 @@ The [source code](https://github.com/ivorkchan/not.cy) is also available.
 
 ## Web Typography
 
+<Callout type="warn">
+
+Initial version.
+
+</Callout>
+
 About [web font styling](https://fonts.google.com/knowledge):
 
 ```css
@@ -53,6 +59,7 @@ html {
   hyphenate-limit-zone: 8%; // not supported yet
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  hanging-punctuation: first last;
 }
 ```
 
@@ -126,13 +133,15 @@ module.exports = {
 
 ### Example
 
-Default style:
+<Callout type="warn">
 
-> 用以书写的小幅绢帛，后亦借指纸。《汉书・外戚传下・孝成赵皇后》：「武（籍武）发篋中，有裹药二枚，赫蹏书。」颜师古注：「邓展曰：『赫音兄弟鬩墙之鬩。』应劭曰：『赫蹏，薄小纸也。』」宋赵彦卫《云麓漫钞》卷七：「《赵后传》所谓『赫蹏』者，注云『薄小纸』，然其寔亦縑帛。」
+似乎在 Chromium 上出现问题，Safari 暂时正常。
+
+</Callout>
 
 With punctuation squeezing:
 
-<blockquote className="heti">
+<blockquote>
   <p>
     <span>用以书写的小幅绢帛，后亦借指纸</span>
     <mark>。《</mark>
@@ -161,6 +170,6 @@ With punctuation squeezing:
 
 ## 题外
 
-1. 至于 [Safari 上的系统字体不能正常显示](https://stackoverflow.com/questions/52692905/font-family-display-issue-in-safari-12-on-macos-mojave)，已有讨论；
+1. 至于 Safari 上的系统字体不能正常显示，已有[讨论](https://stackoverflow.com/questions/52692905/font-family-display-issue-in-safari-12-on-macos-mojave)；
 2. 我习惯用 `&#12539;` 作间隔号，即片假名中点，保持宽度一致；
 3. 使用直角引号目的同上。

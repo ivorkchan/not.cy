@@ -2,27 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* color */
 @layer base {
   :root {
-    --bg: rgb(255 255 255);
-    --fg: rgb(64 64 64);
-    --muted: rgb(229 229 229);
-    --prose-width: 65ch;
+    --bg: 255, 255, 255;
+    --fg: 64, 64, 64;
+    --muted: 229, 229, 229;
+    --prose-width: 64ch;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: rgb(23 23 23);
-      --fg: rgb(212 212 212);
-      --muted: rgb(64 64 64);
+      --bg: 23, 23, 23;
+      --fg: 212, 212, 212;
+      --muted: 64, 64, 64;
     }
   }
 }
 
+/* scroll bar and selection */
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--muted) transparent;
+    scrollbar-color: rgb(var(--muted)) transparent;
   }
 
   ::-webkit-scrollbar {
@@ -33,7 +35,7 @@
   ::-webkit-scrollbar-thumb {
     min-width: 32px;
     min-height: 32px;
-    background-color: var(--muted);
+    background-color: rgb(var(--muted));
     background-clip: padding-box;
     border: 5px solid transparent;
     border-radius: 16px;
@@ -49,8 +51,8 @@
   }
 
   ::selection {
-    text-decoration-color: var(--bg);
-    background: var(--muted);
+    text-decoration-color: rgb(var(--bg));
+    background: rgb(var(--muted));
   }
 }
 
@@ -74,20 +76,21 @@
     hyphenate-limit-chars: 8 4 4;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    hanging-punctuation: first last;
   }
 
   body {
     overflow: hidden scroll;
     line-height: 1.75;
-    color: var(--fg);
-    background: var(--bg);
+    color: rgb(var(--fg));
+    background: rgb(var(--bg));
   }
 
   main {
     position: relative;
-    max-width: calc(50ch + var(--prose-width));
+    max-width: calc(60ch + var(--prose-width));
     min-height: 100vh;
-    padding: 10rem 0;
+    padding: 10rem 5ch;
     margin: 0 auto;
   }
 }
@@ -107,23 +110,32 @@
   .prose h2,
   .prose h3,
   .prose h4 {
-    @apply font-sans;
+    font-family:
+      var(--font-sans),
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      sans-serif;
   }
 
   i,
   em,
   blockquote {
+    font-weight: 350;
+
     @apply font-serif italic;
   }
 
-  #blog tbody,
-  #craft tbody {
-    border-block-width: 1px;
-    border-block-color: var(--tw-prose-hr);
+  #blog {
+    margin-block-start: -0.75rem;
   }
 
-  #blog td,
-  #craft td {
+  #blog tr {
+    border: none;
+  }
+
+  #blog td {
     padding-left: 0;
   }
 
@@ -133,18 +145,6 @@
 
   .light-hover {
     @apply hover:text-neutral-700 hover:dark:text-neutral-300;
-  }
-
-  .co code {
-    @apply p-0 bg-transparent text-inherit;
-  }
-
-  .co code::before {
-    content: "`";
-  }
-
-  .co code::after {
-    content: "`";
   }
 
   .co-info {
@@ -183,11 +183,20 @@
     }
 
     .main-nav {
+      position: sticky;
+      top: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       width: 100%;
-      height: 4rem;
-      padding: 0 1.25rem;
+      max-width: none;
+      margin-top: 6rem;
+      background: rgb(var(--bg));
+    }
+
+    .main-nav div {
+      width: 100%;
+      padding: 1rem 1.25rem;
     }
 
     article {

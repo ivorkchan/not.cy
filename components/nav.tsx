@@ -54,9 +54,7 @@ export function Nav() {
 
   return (
     <motion.nav
-      className={`main-nav ${
-        hasShadow ? "shadow shadow-muted lg:shadow-none" : undefined
-      }`}
+      className={`main-nav ${hasShadow ? "shadow lg:shadow-none" : undefined}`}
     >
       <div className="prose prose-neutral dark:prose-invert">
         {isArticle && (

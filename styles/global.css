@@ -96,6 +96,10 @@
 }
 
 @layer components {
+  * {
+    box-decoration-break: clone;
+  }
+
   .main-grid {
     display: grid;
     grid-template-columns: 20ch var(--prose-width) 20ch;
@@ -117,6 +121,10 @@
       -apple-system,
       BlinkMacSystemFont,
       sans-serif;
+  }
+
+  .prose kbd {
+    @apply font-mono;
   }
 
   i,
@@ -191,7 +199,12 @@
       width: 100%;
       max-width: none;
       margin-top: 6rem;
-      background: rgb(var(--bg));
+      background-image: radial-gradient(
+        rgba(var(--bg), 0.6) 1px,
+        rgb(var(--bg)) 1px
+      );
+      background-size: 4px 4px;
+      backdrop-filter: blur(3px);
     }
 
     .main-nav div {

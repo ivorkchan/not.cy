@@ -68,10 +68,10 @@ module.exports = {
               opacity: 0,
             },
             h1: {
-              fontSize: "2rem",
+              fontSize: "2.125rem",
               marginTop: "0",
               marginBottom: "4rem",
-              lineHeight: "2.5rem",
+              lineHeight: "3rem",
               fontWeight: "900",
             },
             h2: {
@@ -92,8 +92,10 @@ module.exports = {
               color: "var(--tw-prose-body)",
               fontWeight: "inherit",
               textDecorationColor: "var(--tw-prose-hr)",
-              textDecorationThickness: "from-font",
+              textDecorationThickness: "1px",
+              textDecorationSkipInk: "auto",
               textUnderlinePosition: "from-font",
+              textUnderlineOffset: "from-font",
               transition: "200ms",
               "&:hover": {
                 textDecorationColor: "var(--tw-prose-body)",
@@ -115,13 +117,35 @@ module.exports = {
               paddingLeft: "0.75rem",
             },
             code: {
+              fontWeight: "400",
               color: "var(--tw-prose-code)",
-              background: "none",
-              fontWeight: "450",
+              backgroundColor: "var(--tw-prose-pre-bg)",
+              padding: "1px 4px",
+              borderRadius: "4px",
+            },
+
+            "code::before": {
+              content: "none",
+            },
+            "code::after": {
+              content: "none",
+            },
+            kbd: {
+              fontWeight: "400",
+              padding: "1px 4px",
+              borderRadius: "4px",
+              boxShadow:
+                "0 0 0 1px rgb(var(--tw-prose-kbd-shadows) / 10%), 0 2px 0 rgb(var(--tw-prose-kbd-shadows) / 10%)",
             },
             blockquote: {
-              fontWeight: "350",
+              fontStyle: "normal",
               quotes: "none",
+            },
+            "blockquote p:first-of-type::before": {
+              content: "none",
+            },
+            "blockquote p:last-of-type::after": {
+              content: "none",
             },
           },
         },

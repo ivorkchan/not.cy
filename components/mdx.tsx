@@ -26,6 +26,11 @@ const components = {
       <Balancer>{children}</Balancer>
     </h1>
   ),
+  pre: ({ children }) => (
+    <pre>
+      <div>{children}</div>
+    </pre>
+  ),
   a: (props: AnchorProps) => {
     const href = props.href;
     const isInternalLink = href && href.startsWith("/");

@@ -1,4 +1,5 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import rehypeShikiji from "rehype-shikiji";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -48,4 +49,17 @@ export const Blog = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "./contents",
   documentTypes: [Page, Blog],
+  mdx: {
+    rehypePlugins: [
+      [
+        rehypeShikiji,
+        {
+          themes: {
+            light: "min-light",
+            dark: "min-dark",
+          },
+        },
+      ],
+    ],
+  },
 });

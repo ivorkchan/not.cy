@@ -17,6 +17,11 @@
       --fg: 212, 212, 212;
       --muted: 64, 64, 64;
     }
+
+    .shiki,
+    .shiki span {
+      color: var(--shiki-dark) !important;
+    }
   }
 }
 
@@ -127,9 +132,13 @@
     @apply font-mono;
   }
 
-  i,
-  em,
-  blockquote {
+  .prose pre {
+    background-color: var(--tw-prose-pre-bg)!important;
+  }
+
+  .prose i,
+  .prose em,
+  .prose blockquote {
     font-weight: 350;
 
     @apply font-serif italic;
@@ -153,6 +162,23 @@
 
   .light-hover {
     @apply hover:text-neutral-700 hover:dark:text-neutral-300;
+  }
+
+  .co-info code,
+  .co-warn code,
+  .co-error code {
+    font-weight: 450;
+
+    @apply p-0 text-inherit bg-transparent
+  }
+
+  .co-info code::before,
+  .co-info code::after,
+  .co-warn code::before,
+  .co-warn code::after,
+  .co-error code::before,
+  .co-error code::after {
+    content: "`";
   }
 
   .co-info {

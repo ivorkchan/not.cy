@@ -1,7 +1,7 @@
 export async function autoSpacing() {
-  const Heti = (await import("@/public/scripts/heti-addon.min")).default;
-  const heti = new Heti(".heti");
-  heti.autoSpacing();
+  const Heti = (await import("@/public/scripts/heti-addon.min")).default
+  const heti = new Heti(".heti")
+  heti.autoSpacing()
 
-  return Promise.resolve();
+  return Promise.resolve()
 }

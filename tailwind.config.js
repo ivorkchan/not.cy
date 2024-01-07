@@ -1,4 +1,4 @@
-const colors = require("tailwindcss/colors");
+const colors = require("tailwindcss/colors")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -101,6 +101,9 @@ module.exports = {
                 textDecorationColor: "var(--tw-prose-body)",
               },
             },
+            strong: {
+              color: "inherit",
+            },
             table: {
               fontSize: "1rem",
               lineHeight: "1.75rem",
@@ -153,4 +156,4 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography")],
-};
+}

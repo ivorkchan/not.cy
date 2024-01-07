@@ -1,5 +1,5 @@
-import { defineDocumentType, makeSource } from "contentlayer/source-files";
-import rehypeShikiji from "rehype-shikiji";
+import { defineDocumentType, makeSource } from "contentlayer/source-files"
+import rehypeShikiji from "rehype-shikiji"
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -11,7 +11,7 @@ const computedFields = {
     type: "string",
     resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
   },
-};
+}
 
 export const Page = defineDocumentType(() => ({
   name: "Page",
@@ -26,7 +26,7 @@ export const Page = defineDocumentType(() => ({
     },
   },
   computedFields,
-}));
+}))
 
 export const Blog = defineDocumentType(() => ({
   name: "Blog",
@@ -44,7 +44,7 @@ export const Blog = defineDocumentType(() => ({
     },
   },
   computedFields,
-}));
+}))
 
 export default makeSource({
   contentDirPath: "./contents",
@@ -55,11 +55,11 @@ export default makeSource({
         rehypeShikiji,
         {
           themes: {
-            light: "min-light",
-            dark: "min-dark",
+            light: "vitesse-light",
+            dark: "vitesse-dark",
           },
         },
       ],
     ],
   },
-});
+})

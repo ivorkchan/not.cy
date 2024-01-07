@@ -1,35 +1,35 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 
-import { allBlogs } from "contentlayer/generated";
+import { allBlogs } from "contentlayer/generated"
 
-import { Article } from "@/components/article";
-import { MDX } from "@/components/mdx";
+import { Article } from "@/components/article"
+import { MDX } from "@/components/mdx"
 
 interface BlogProps {
   params: {
-    slug: string[];
-  };
+    slug: string[]
+  }
 }
 
 async function getBlogFromParams(params: BlogProps["params"]) {
-  const slug = params?.slug?.join("/");
-  const blog = allBlogs.find((blog) => blog.slugAsParams === slug);
+  const slug = params?.slug?.join("/")
+  const blog = allBlogs.find((blog) => blog.slugAsParams === slug)
 
   if (!blog) {
-    null;
+    return null
   }
 
-  return blog;
+  return blog
 }
 
 export async function generateMetadata({
   params,
 }: BlogProps): Promise<Metadata> {
-  const blog = await getBlogFromParams(params);
+  const blog = await getBlogFromParams(params)
 
   if (!blog) {
-    return {};
+    return {}
   }
 
   return {
@@ -52,25 +52,25 @@ export async function generateMetadata({
       description: blog.description,
       images: ["https://not.cy/og.png"],
     },
-  };
+  }
 }
 
 export async function generateStaticParams(): Promise<BlogProps["params"][]> {
   return allBlogs.map((blog) => ({
     slug: blog.slugAsParams.split("/"),
-  }));
+  }))
 }
 
 export default async function Blog({ params }: BlogProps) {
-  const blog = await getBlogFromParams(params);
+  const blog = await getBlogFromParams(params)
 
   if (!blog) {
-    notFound();
+    notFound()
   }
 
   return (
     <Article>
       <MDX code={blog.body.code} />
     </Article>
-  );
+  )
 }

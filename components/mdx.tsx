@@ -1,18 +1,19 @@
-"use client";
+"use client"
 
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
-import { useMDXComponent as useMDX } from "next-contentlayer/hooks";
-import Balancer from "react-wrap-balancer";
+import { useMDXComponent as useMDX } from "next-contentlayer/hooks"
+import Balancer from "react-wrap-balancer"
 
-import { Callout } from "@/components/mdx/Callout";
-import { Date, DateDistance } from "@/components/mdx/Date";
-import { BareGraphic, Graphic } from "@/components/mdx/Graphic";
-import { Blog } from "@/components/index";
+import { Callout } from "@/components/mdx/Callout"
+import { Date, DateDistance } from "@/components/mdx/Date"
+import { BareGraphic, Graphic } from "@/components/mdx/Graphic"
+import { Blog } from "@/components/index"
 
-type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
-type AnchorProps = React.HTMLProps<HTMLAnchorElement>;
+type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
+type PreProps = React.HTMLAttributes<HTMLPreElement>
+type AnchorProps = React.HTMLProps<HTMLAnchorElement>
 
 const components = {
   Callout,
@@ -21,34 +22,30 @@ const components = {
   BareGraphic,
   Graphic,
   Blog,
-  h1: ({ children }: HeadingProps) => (
-    <h1>
-      <Balancer>{children}</Balancer>
+  h1: (props: HeadingProps) => (
+    <h1 {...props}>
+      <Balancer>{props.children}</Balancer>
     </h1>
   ),
-  pre: ({ children }) => (
-    <pre>
-      <div>{children}</div>
-    </pre>
-  ),
+  pre: (props: PreProps) => <pre {...props} />,
   a: (props: AnchorProps) => {
-    const href = props.href;
-    const isInternalLink = href && href.startsWith("/");
+    const href = props.href
+    const isInternalLink = href && href.startsWith("/")
 
     if (isInternalLink) {
-      return <Link href={href}>{props.children}</Link>;
+      return <Link href={href}>{props.children}</Link>
     }
 
-    return <a target="_blank" rel="noopener noreferrer" {...props} />;
+    return <a target="_blank" rel="noopener noreferrer" {...props} />
   },
-};
+}
 
 interface MDXProps {
-  code: string;
+  code: string
 }
 
 export function MDX({ code }: MDXProps) {
-  const MDXContent = useMDX(code);
+  const MDXContent = useMDX(code)
 
-  return <MDXContent components={components} />;
+  return <MDXContent components={components} />
 }

@@ -7,10 +7,10 @@ const nextConfig = {
         destination: "/about",
         permanent: true,
       },
-    ];
+    ]
   },
-};
+}
 
-const { withContentlayer } = require("next-contentlayer");
+const { withContentlayer } = require("next-contentlayer")
 
-module.exports = withContentlayer(nextConfig);
+module.exports = withContentlayer(nextConfig)

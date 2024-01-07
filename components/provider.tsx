@@ -1,12 +1,18 @@
-"use client";
+"use client"
 
-import { ThemeProvider } from "next-themes";
-import { Provider as BalanceProvider } from "react-wrap-balancer";
+import React from "react"
 
-export function Provider({ children }) {
+import { ThemeProvider } from "next-themes"
+import { Provider as BalanceProvider } from "react-wrap-balancer"
+
+type ProviderProps = {
+  children: React.ReactNode
+}
+
+export function Provider({ children }: ProviderProps) {
   return (
     <ThemeProvider attribute="class">
       <BalanceProvider>{children}</BalanceProvider>
     </ThemeProvider>
-  );
+  )
 }

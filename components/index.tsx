@@ -1,7 +1,9 @@
-import { allBlogs } from "contentlayer/generated";
-import { compareDesc } from "date-fns";
+import { allBlogs } from "contentlayer/generated"
+import { compareDesc } from "date-fns"
 
-const IconForward = (props) => (
+import type { Blog } from "contentlayer/generated"
+
+const IconForward = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
@@ -18,40 +20,47 @@ const IconForward = (props) => (
     <path d="M15 14l4 -4l-4 -4"></path>
     <path d="M19 10h-11a4 4 0 1 0 0 8h1"></path>
   </svg>
-);
+)
 
-function groupByYear(data) {
-  const groups = data.reduce((groups, item) => {
-    const year = item.slug.split("/")[2];
+function groupByYear(data: Blog[]): Record<string, Blog[]> {
+  const groups = data.reduce((groups: Record<string, Blog[]>, item: Blog) => {
+    const year = item.slug.split("/")[2]
     if (!groups[year]) {
-      groups[year] = [];
+      groups[year] = []
     }
-    groups[year].push(item);
-    return groups;
-  }, {});
+    groups[year].push(item)
+    return groups
+  }, {})
 
   for (const year in groups) {
-    groups[year].sort((a, b) =>
-      compareDesc(new Date(a.date), new Date(b.date)),
-    );
+    groups[year].sort((a, b) => {
+      const dateA = a.date ? new Date(a.date) : new Date(0)
+      const dateB = b.date ? new Date(b.date) : new Date(0)
+      return compareDesc(dateA, dateB)
+    })
   }
 
-  return groups;
+  return groups
 }
 
-function sortYears(years) {
-  return Object.keys(years).sort((a, b) => Number(b) - Number(a));
+function sortYears(years: Record<string, Blog[]>): string[] {
+  return Object.keys(years).sort((a, b) => Number(b) - Number(a))
 }
 
-function ContentTable({ data, id }) {
-  const groupedByYear = groupByYear(data);
-  const sortedYears = sortYears(groupedByYear);
+interface ContentTableProps {
+  data: Blog[]
+  id: string
+}
+
+function ContentTable({ data, id }: ContentTableProps) {
+  const groupedByYear = groupByYear(data)
+  const sortedYears = sortYears(groupedByYear)
 
   return (
     <table id={id}>
       <tbody>
         {sortedYears.flatMap((year, yearIdx) => {
-          const itemsForYear = groupedByYear[year];
+          const itemsForYear = groupedByYear[year]
           return itemsForYear.map((item, itemIdx) => (
             <tr key={`${yearIdx}-${itemIdx}`}>
               {itemIdx === 0 && (
@@ -72,13 +81,13 @@ function ContentTable({ data, id }) {
                 </a>
               </td>
             </tr>
-          ));
+          ))
         })}
       </tbody>
     </table>
-  );
+  )
 }
 
 export function Blog() {
-  return <ContentTable data={allBlogs} id="blog" />;
+  return <ContentTable data={allBlogs} id="blog" />
 }

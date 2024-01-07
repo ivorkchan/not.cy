@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll } from "framer-motion"
 
-const IconBack = (props) => (
+const IconBack = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
@@ -26,31 +26,35 @@ const IconBack = (props) => (
       strokeWidth="0"
     ></path>
   </svg>
-);
+)
 
-function NavLink({ children }) {
+type NavLinkProps = {
+  children: React.ReactNode
+}
+
+function NavLink({ children }: NavLinkProps) {
   return (
     <span className="light light-hover flex gap-2 transition">
       <IconBack className="h-7 w-4" />
       <span>{children}</span>
     </span>
-  );
+  )
 }
 
 export function Nav() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
-  const isIndex = pathname === "/about";
-  const isArticle = pathname.startsWith("/blog/");
+  const isIndex = pathname === "/about"
+  const isArticle = pathname.startsWith("/blog/")
 
-  const { scrollY } = useScroll();
-  const [hasShadow, setHasShadow] = useState(false);
+  const { scrollY } = useScroll()
+  const [hasShadow, setHasShadow] = useState(false)
 
   useEffect(() => {
     return scrollY.onChange((y) => {
-      setHasShadow(y > 96);
-    });
-  }, [scrollY]);
+      setHasShadow(y > 96)
+    })
+  }, [scrollY])
 
   return (
     <motion.nav
@@ -69,5 +73,5 @@ export function Nav() {
         )}
       </div>
     </motion.nav>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-import React from "react";
-import { Metadata } from "next";
-import { Literata, Roboto_Mono } from "next/font/google";
-import localFont from "next/font/local";
+import React from "react"
+import { Metadata } from "next"
+import { Literata, Roboto_Mono } from "next/font/google"
+import localFont from "next/font/local"
 
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react"
 
-import { cn } from "@/lib/utils";
-import { Nav } from "@/components/nav";
-import { Provider } from "@/components/provider";
+import { cn } from "@/lib/utils"
+import { Nav } from "@/components/nav"
+import { Provider } from "@/components/provider"
 
-import "@/styles/global.css";
+import "@/styles/global.css"
 
 const font_sans = localFont({
   src: [
@@ -26,7 +26,7 @@ const font_sans = localFont({
   ],
   variable: "--font-sans",
   display: "swap",
-});
+})
 
 const font_serif = Literata({
   variable: "--font-serif",
@@ -34,19 +34,19 @@ const font_serif = Literata({
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
-});
+})
 
 const font_mono = Roboto_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
-});
+})
 
 const font_kai_punc = localFont({
   src: "../public/fonts/HYKaiTiS.subset.woff2",
   variable: "--font-kai-punc",
   display: "swap",
-});
+})
 
 export const viewport = {
   themeColor: [
@@ -56,7 +56,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   fit: "cover",
-};
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://not.cy"),
@@ -72,12 +72,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -88,7 +88,7 @@ export default function RootLayout({
           font_sans.variable,
           font_serif.variable,
           font_mono.variable,
-          font_kai_punc.variable,
+          font_kai_punc.variable
         )}
       >
         <Provider>
@@ -102,5 +102,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  );
+  )
 }

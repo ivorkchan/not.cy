@@ -1,6 +1,3 @@
 # not.cy
 
-Install Command:
-```
-pnpm install
-```
+Nothing but design details. View [this page](https://not.cy/debug).

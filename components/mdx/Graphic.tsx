@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react"
+import Image from "next/image"
 
 import Zoom from "react-medium-image-zoom"
 
@@ -8,7 +8,7 @@ interface GraphicProps {
   alt: string
 }
 
-export function BareGraphic({ src, alt }: GraphicProps) {
+export function BareGraphic({ src }: GraphicProps) {
   const [isLargeScreen, setIsLargeScreen] = useState(false)
 
   useEffect(() => {
@@ -22,7 +22,17 @@ export function BareGraphic({ src, alt }: GraphicProps) {
     return () => window.removeEventListener("resize", checkScreenSize)
   }, [])
 
-  const image = <img src={src} alt={alt} className="max-h-[64ch] rounded-md" />
+  const image = (
+    <Image
+      src={src}
+      alt={""}
+      width={0}
+      height={0}
+      sizes="100vw"
+      className="max-h-[64ch] w-auto rounded-md"
+      loading={"lazy"}
+    />
+  )
 
   return isLargeScreen ? <Zoom>{image}</Zoom> : image
 }
@@ -42,7 +52,15 @@ export function Graphic({ src, alt }: GraphicProps) {
   }, [])
 
   const image = (
-    <img src={src} alt={alt} className="!mb-0 max-h-[64ch] rounded-md" />
+    <Image
+      src={src}
+      alt={alt}
+      width={0}
+      height={0}
+      sizes="100vw"
+      className="!mb-0 max-h-[64ch] w-auto rounded-md"
+      loading={"lazy"}
+    />
   )
 
   return (

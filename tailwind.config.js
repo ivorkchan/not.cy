@@ -7,15 +7,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./contents/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
   future: {
     hoverOnlyWhenSupported: true,
   },
   theme: {
     extend: {
-      colors: {
-        muted: "rgb(var(--muted))",
-      },
       fontFamily: {
         sans: [
           "var(--font-sans)",
@@ -34,9 +30,6 @@ module.exports = {
         ],
         serif: [
           "var(--font-serif)",
-          "Charter",
-          "'Iowan Old Style'",
-          "var(--font-kai-punc)",
           "FZNewKai-Z03",
           "ui-serif",
           "serif",

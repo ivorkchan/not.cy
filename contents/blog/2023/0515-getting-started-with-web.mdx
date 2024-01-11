@@ -8,7 +8,7 @@ date: 2023-05-15
 
 # Getting Started with Web
 
-View this [debug](/debug) page for typography details.
+View this [test page](https://not.cy/debug) for typography details.
 
 This website is inspired by:
 
@@ -41,7 +41,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   orphans: 3;
   widows: 3;
-  -webkit-hyphens: auto;
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   -webkit-hyphenate-limit-chars: 8 4 4;
@@ -50,9 +49,6 @@ html {
   -webkit-hyphenate-limit-zone: 8%;
   hyphens: auto;
   hyphenate-limit-chars: 8 4 4;
-  hyphenate-limit-lines: 2; // not supported yet
-  hyphenate-limit-last: always; // not supported yet
-  hyphenate-limit-zone: 8%; // not supported yet
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   hanging-punctuation: first last;
@@ -74,6 +70,7 @@ const font_serif = localFont({
     { prop: "descent-override", value: "22%" },
     { prop: "line-gap-override", value: "0%" },
   ],
+  display: "swap",
 });
 ```
 
@@ -101,17 +98,26 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        sans: [
+          "var(--font-sans)",
+          "'HYXinRenWenSong 55W'",
+          "FZNewShuSong-Z10",
+          "ui-sans-serif",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "sans-serif",
+          "'Apple Color Emoji'",
+          "'Segoe UI Emoji'",
+          "'Segoe UI Symbol'",
+          "'Noto Color Emoji'",
+          "emoji",
+          "math",
+        ],
         serif: [
-          "ui-serif",
-          "-apple-system-ui-serif",
           "var(--font-serif)",
-          "'Noto Serif'",
-          "'Source Serif Pro'",
+          "FZNewKai-Z03",
+          "ui-serif",
           "serif",
-          "var(--font-kai-punc)",
-          "var(--font-kai)",
-          "KaiTi",
-          "STKaiti",
           "fangsong",
         ],
       },
@@ -120,12 +126,9 @@ module.exports = {
 }
 ```
 
-`--font-kai-punc` 是汉仪楷体的子集，仅包含标点符号，使用 `fonttools` 的 `subset` 库精简。设置原因是方正新楷体的标点在挤压后间距极不合理：
+中文使用汉仪新人文宋，方正新书宋补全；强调使用方正新楷体。字符集均为 GBK。
 
-<Graphic
-  src="/images/2023/punctuation.png"
-  alt="上图使用汉仪楷体标点，下图为方正新楷体。"
-/>
+使用 [Heti](https://github.com/sivan/heti) 进行标点挤压。我删除了给中英文间手动添加空格的函数，因为英文单词换行后空格会导致无法对齐。
 
 ## 题外
 

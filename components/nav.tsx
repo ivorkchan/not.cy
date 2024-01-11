@@ -28,11 +28,7 @@ const IconBack = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-type NavLinkProps = {
-  children: React.ReactNode
-}
-
-function NavLink({ children }: NavLinkProps) {
+function NavLink({ children }: { children: React.ReactNode }) {
   return (
     <span className="light light-hover flex gap-2 transition">
       <IconBack className="h-7 w-4" />
@@ -44,21 +40,25 @@ function NavLink({ children }: NavLinkProps) {
 export function Nav() {
   const pathname = usePathname()
 
-  const isIndex = pathname === "/about"
+  const isBlog = pathname === "/blog"
   const isArticle = pathname.startsWith("/blog/")
 
   const { scrollY } = useScroll()
   const [hasShadow, setHasShadow] = useState(false)
 
   useEffect(() => {
-    return scrollY.onChange((y) => {
+    const distance = scrollY.on("change", (y) => {
       setHasShadow(y > 96)
     })
+
+    return distance
   }, [scrollY])
 
   return (
     <motion.nav
-      className={`main-nav ${hasShadow ? "shadow lg:shadow-none" : undefined}`}
+      className={`main-nav ${
+        hasShadow ? "shadow lg:shadow-none" : "shadow-none"
+      }`}
     >
       <div className="prose prose-neutral dark:prose-invert">
         {isArticle && (
@@ -66,7 +66,7 @@ export function Nav() {
             <NavLink>BLOG</NavLink>
           </Link>
         )}
-        {!isIndex && !isArticle && (
+        {isBlog && (
           <Link href="/about" className="no-underline">
             <NavLink>INFO</NavLink>
           </Link>

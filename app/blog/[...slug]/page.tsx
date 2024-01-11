@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 
 import { allBlogs } from "contentlayer/generated"
 
-import { Article } from "@/components/article"
 import { MDX } from "@/components/mdx"
 
 interface BlogProps {
@@ -68,9 +67,5 @@ export default async function Blog({ params }: BlogProps) {
     notFound()
   }
 
-  return (
-    <Article>
-      <MDX code={blog.body.code} />
-    </Article>
-  )
+  return <MDX code={blog.body.code} />
 }

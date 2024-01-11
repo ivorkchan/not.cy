@@ -6,14 +6,14 @@ interface DateProps {
 
 export function Date({ date }: DateProps) {
   const parsedDate = parseISO(date)
-  return <span className="light">{format(parsedDate, "PPP")}</span>
+  return <div className="light">{format(parsedDate, "PPP")}</div>
 }
 
 export function DateDistance({ date }: DateProps) {
   const parsedDate = parseISO(date)
   return (
-    <span className="light">
+    <div className="light">
       {formatDistanceToNow(parsedDate, { addSuffix: true })}
-    </span>
+    </div>
   )
 }

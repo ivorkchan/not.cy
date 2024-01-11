@@ -5,13 +5,9 @@ import React from "react"
 import { ThemeProvider } from "next-themes"
 import { Provider as BalanceProvider } from "react-wrap-balancer"
 
-type ProviderProps = {
-  children: React.ReactNode
-}
-
-export function Provider({ children }: ProviderProps) {
+export function Provider({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider>
       <BalanceProvider>{children}</BalanceProvider>
     </ThemeProvider>
   )

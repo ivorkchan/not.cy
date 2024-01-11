@@ -1,8 +1,6 @@
 import React from "react"
 
-type IconProps = React.SVGProps<SVGSVGElement>
-
-const IconInfo = (props: IconProps) => (
+const IconInfo = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 448 512"
@@ -13,7 +11,7 @@ const IconInfo = (props: IconProps) => (
   </svg>
 )
 
-const IconWarn = (props: IconProps) => (
+const IconWarn = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
@@ -24,7 +22,7 @@ const IconWarn = (props: IconProps) => (
   </svg>
 )
 
-const IconError = (props: IconProps) => (
+const IconError = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"

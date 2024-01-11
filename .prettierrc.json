@@ -1,4 +1,10 @@
 {
+  "endOfLine": "lf",
+  "semi": false,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "quoteProps": "preserve",
   "plugins": ["@ianvs/prettier-plugin-sort-imports"],
   "importOrder": [
     "^(react/(.*)$)|^(react$)",

@@ -1,5 +1,19 @@
 {
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "prettier.printWidth": 120,
+  "cSpell.words": [
+    "clsx",
+    "FZXKTK",
+    "FZXSSK",
+    "heti",
+    "ianvs",
+    "Ivork",
+    "Noto",
+    "rehype",
+    "Segoe",
+    "shikiji",
+    "vitesse"
+  ]
 }

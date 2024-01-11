@@ -1,14 +1,19 @@
 import React from "react"
 import { Metadata } from "next"
-import { Literata, Roboto_Mono } from "next/font/google"
 import localFont from "next/font/local"
 
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { cn } from "@/lib/utils"
 import { Nav } from "@/components/nav"
 import { Provider } from "@/components/provider"
 
+import "@/public/fonts/HYXinRenWenSong55W/result.css"
+import "@/public/fonts/FZXSSK/result.css"
+import "@/public/fonts/FZXKTK/result.css"
+import "@/styles/heti.css"
+import "@/styles/zoom.css"
 import "@/styles/global.css"
 
 const font_sans = localFont({
@@ -28,23 +33,53 @@ const font_sans = localFont({
   display: "swap",
 })
 
-const font_serif = Literata({
+const font_serif = localFont({
+  src: [
+    {
+      path: "../public/fonts/Spectral-Regular.woff2",
+      style: "normal",
+      weight: "400",
+    },
+    {
+      path: "../public/fonts/Spectral-Italic.woff2",
+      style: "italic",
+      weight: "400",
+    },
+    {
+      path: "../public/fonts/Spectral-SemiBold.woff2",
+      style: "normal",
+      weight: "600",
+    },
+    {
+      path: "../public/fonts/Spectral-SemiBoldItalic.woff2",
+      style: "italic",
+      weight: "600",
+    },
+  ],
+  declarations: [
+    { prop: "size-adjust", value: "108%" },
+    { prop: "ascent-override", value: "85%" },
+    { prop: "descent-override", value: "22%" },
+    { prop: "line-gap-override", value: "0%" },
+  ],
   variable: "--font-serif",
-  weight: ["400", "600"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
   display: "swap",
 })
 
-const font_mono = Roboto_Mono({
+const font_mono = localFont({
+  src: [
+    {
+      path: "../public/fonts/RobotoMono-Variable.woff2",
+      style: "normal",
+      weight: "100 700",
+    },
+    {
+      path: "../public/fonts/RobotoMono-Variable-Italic.woff2",
+      style: "italic",
+      weight: "100 700",
+    },
+  ],
   variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-})
-
-const font_kai_punc = localFont({
-  src: "../public/fonts/HYKaiTiS.subset.woff2",
-  variable: "--font-kai-punc",
   display: "swap",
 })
 
@@ -54,8 +89,6 @@ export const viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#171717" },
   ],
   width: "device-width",
-  initialScale: 1,
-  fit: "cover",
 }
 
 export const metadata: Metadata = {
@@ -87,8 +120,7 @@ export default function RootLayout({
           "font-sans",
           font_sans.variable,
           font_serif.variable,
-          font_mono.variable,
-          font_kai_punc.variable
+          font_mono.variable
         )}
       >
         <Provider>
@@ -100,6 +132,7 @@ export default function RootLayout({
           </main>
         </Provider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

@@ -1,18 +1,19 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 
 import { useMDXComponent as useMDX } from "next-contentlayer/hooks"
 import Balancer from "react-wrap-balancer"
 
+import { autoSpacing } from "@/lib/heti"
+import { cn } from "@/lib/utils"
 import { Callout } from "@/components/mdx/Callout"
 import { Date, DateDistance } from "@/components/mdx/Date"
 import { BareGraphic, Graphic } from "@/components/mdx/Graphic"
 import { Blog } from "@/components/index"
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
-type PreProps = React.HTMLAttributes<HTMLPreElement>
 type AnchorProps = React.HTMLProps<HTMLAnchorElement>
 
 const components = {
@@ -27,7 +28,6 @@ const components = {
       <Balancer>{props.children}</Balancer>
     </h1>
   ),
-  pre: (props: PreProps) => <pre {...props} />,
   a: (props: AnchorProps) => {
     const href = props.href
     const isInternalLink = href && href.startsWith("/")
@@ -46,6 +46,19 @@ interface MDXProps {
 
 export function MDX({ code }: MDXProps) {
   const MDXContent = useMDX(code)
+  const [layoutPolished, setLayoutPolished] = useState<boolean>(false)
 
-  return <MDXContent components={components} />
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      autoSpacing().finally(() => setLayoutPolished(true))
+    }, 100)
+
+    return () => clearTimeout(timer)
+  })
+
+  return (
+    <div className={cn("heti ", layoutPolished ? "block" : "hidden")}>
+      <MDXContent components={components} />
+    </div>
+  )
 }

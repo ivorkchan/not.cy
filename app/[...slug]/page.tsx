@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 
 import { allPages } from "contentlayer/generated"
 
-import { Article } from "@/components/article"
 import { MDX } from "@/components/mdx"
 
 interface PageProps {
@@ -68,9 +67,5 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
-  return (
-    <Article>
-      <MDX code={page.body.code} />
-    </Article>
-  )
+  return <MDX code={page.body.code} />
 }

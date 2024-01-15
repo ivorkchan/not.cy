@@ -1,3 +1,5 @@
+import React from "react"
+
 import { allBlogs } from "contentlayer/generated"
 import { compareDesc } from "date-fns"
 
@@ -88,6 +90,6 @@ function ContentTable({ data, id }: ContentTableProps) {
   )
 }
 
-export function Blog() {
+export function BlogList() {
   return <ContentTable data={allBlogs} id="blog" />
 }

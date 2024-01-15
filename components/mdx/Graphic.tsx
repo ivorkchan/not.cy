@@ -1,7 +1,24 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react"
-import Image from "next/image"
 
 import Zoom from "react-medium-image-zoom"
+
+function useScreenSize(threshold = 1024) {
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= threshold)
+    }
+
+    checkScreenSize()
+
+    window.addEventListener("resize", checkScreenSize)
+    return () => window.removeEventListener("resize", checkScreenSize)
+  }, [threshold])
+
+  return isLargeScreen
+}
 
 interface GraphicProps {
   src: string
@@ -9,58 +26,18 @@ interface GraphicProps {
 }
 
 export function BareGraphic({ src }: GraphicProps) {
-  const [isLargeScreen, setIsLargeScreen] = useState(false)
+  const isLargeScreen = useScreenSize()
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024)
-    }
-
-    checkScreenSize()
-    window.addEventListener("resize", checkScreenSize)
-
-    return () => window.removeEventListener("resize", checkScreenSize)
-  }, [])
-
-  const image = (
-    <Image
-      src={src}
-      alt={""}
-      width={0}
-      height={0}
-      sizes="100vw"
-      className="max-h-[64ch] w-auto rounded-md"
-      loading={"lazy"}
-    />
-  )
+  const image = <img src={src} alt={""} className="max-h-[64ch] rounded-md" />
 
   return isLargeScreen ? <Zoom>{image}</Zoom> : image
 }
 
 export function Graphic({ src, alt }: GraphicProps) {
-  const [isLargeScreen, setIsLargeScreen] = useState(false)
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024)
-    }
-
-    checkScreenSize()
-    window.addEventListener("resize", checkScreenSize)
-
-    return () => window.removeEventListener("resize", checkScreenSize)
-  }, [])
+  const isLargeScreen = useScreenSize()
 
   const image = (
-    <Image
-      src={src}
-      alt={alt}
-      width={0}
-      height={0}
-      sizes="100vw"
-      className="!mb-0 max-h-[64ch] w-auto rounded-md"
-      loading={"lazy"}
-    />
+    <img src={src} alt={alt} className="mb-0 max-h-[64ch] rounded-md" />
   )
 
   return (

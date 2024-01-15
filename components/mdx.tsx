@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 import { Callout } from "@/components/mdx/Callout"
 import { Date, DateDistance } from "@/components/mdx/Date"
 import { BareGraphic, Graphic } from "@/components/mdx/Graphic"
-import { Blog } from "@/components/index"
+import { BlogList } from "@/components/bloglist"
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
 type AnchorProps = React.HTMLProps<HTMLAnchorElement>
@@ -22,7 +22,7 @@ const components = {
   DateDistance,
   BareGraphic,
   Graphic,
-  Blog,
+  BlogList,
   h1: (props: HeadingProps) => (
     <h1 {...props}>
       <Balancer>{props.children}</Balancer>

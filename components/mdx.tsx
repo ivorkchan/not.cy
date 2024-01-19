@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { Callout } from "@/components/mdx/Callout"
 import { Date, DateDistance } from "@/components/mdx/Date"
 import { BareGraphic, Graphic } from "@/components/mdx/Graphic"
+import { Tweet } from "@/components/mdx/Tweet"
 import { BlogList } from "@/components/bloglist"
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>
@@ -22,6 +23,7 @@ const components = {
   DateDistance,
   BareGraphic,
   Graphic,
+  Tweet,
   BlogList,
   h1: (props: HeadingProps) => (
     <h1 {...props}>

@@ -34,8 +34,8 @@ const IconError = (props: React.SVGProps<SVGSVGElement>) => (
 )
 
 type CalloutProps = {
-  children: React.ReactNode
-  type: keyof typeof typeStyles
+  readonly children: React.ReactNode
+  readonly type: keyof typeof typeStyles
 }
 
 const typeStyles = {

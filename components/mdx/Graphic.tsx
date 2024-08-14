@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 
 import Zoom from "react-medium-image-zoom"
 
-function useScreenSize(threshold = 1024) {
+function useScreenSize(threshold = 1_024) {
   const [isLargeScreen, setIsLargeScreen] = useState(false)
 
   useEffect(() => {
@@ -21,8 +21,8 @@ function useScreenSize(threshold = 1024) {
 }
 
 interface GraphicProps {
-  src: string
-  alt: string
+  readonly src: string
+  readonly alt: string
 }
 
 export function BareGraphic({ src }: GraphicProps) {

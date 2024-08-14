@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     try {
       const date = new Date(blog.date ?? "")
       lastModified = date.toISOString()
-    } catch (error) {
+    } catch {
       console.warn(`Invalid date in blog: ${blog}`)
     }
 

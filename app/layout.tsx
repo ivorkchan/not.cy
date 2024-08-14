@@ -4,6 +4,7 @@ import localFont from "next/font/local"
 
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ViewTransitions } from "next-view-transitions"
 
 import { cn } from "@/lib/utils"
 import { Nav } from "@/components/nav"
@@ -57,9 +58,9 @@ const font_serif = localFont({
     },
   ],
   declarations: [
-    { prop: "size-adjust", value: "108%" },
+    { prop: "size-adjust", value: "115%" },
     { prop: "ascent-override", value: "85%" },
-    { prop: "descent-override", value: "22%" },
+    { prop: "descent-override", value: "25%" },
     { prop: "line-gap-override", value: "0%" },
   ],
   variable: "--font-serif",
@@ -96,11 +97,11 @@ export const metadata: Metadata = {
   keywords: ["Ivork Chan", "CHENG Yue", "Yue Cheng"],
   authors: [
     {
-      name: "CY",
+      name: "cy",
       url: "https://not.cy",
     },
   ],
-  creator: "CY",
+  creator: "cy",
   robots: {
     index: true,
     follow: true,
@@ -110,30 +111,32 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  readonly children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body
-        className={cn(
-          "font-sans",
-          font_sans.variable,
-          font_serif.variable,
-          font_mono.variable
-        )}
-      >
-        <Provider>
-          <main>
-            <div className="main-grid">
-              <Nav />
-              {children}
-            </div>
-          </main>
-        </Provider>
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body
+          className={cn(
+            "font-sans",
+            font_sans.variable,
+            font_serif.variable,
+            font_mono.variable
+          )}
+        >
+          <Provider>
+            <main>
+              <div className="main-grid">
+                <Nav />
+                {children}
+              </div>
+            </main>
+          </Provider>
+          <Analytics />
+          <SpeedInsights />
+        </body>
+      </html>
+    </ViewTransitions>
   )
 }

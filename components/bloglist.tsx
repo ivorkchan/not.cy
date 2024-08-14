@@ -18,9 +18,9 @@ const IconForward = (props: React.SVGProps<SVGSVGElement>) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-    <path d="M15 14l4 -4l-4 -4"></path>
-    <path d="M19 10h-11a4 4 0 1 0 0 8h1"></path>
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M15 14l4 -4l-4 -4" />
+    <path d="M19 10h-11a4 4 0 1 0 0 8h1" />
   </svg>
 )
 
@@ -30,6 +30,7 @@ function groupByYear(data: Blog[]): Record<string, Blog[]> {
     if (!groups[year]) {
       groups[year] = []
     }
+
     groups[year].push(item)
     return groups
   }, {})
@@ -50,8 +51,8 @@ function sortYears(years: Record<string, Blog[]>): string[] {
 }
 
 interface ContentTableProps {
-  data: Blog[]
-  id: string
+  readonly data: Blog[]
+  readonly id: string
 }
 
 function ContentTable({ data, id }: ContentTableProps) {

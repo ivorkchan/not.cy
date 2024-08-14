@@ -1,5 +1,5 @@
+import rehypeShiki from "@shikijs/rehype"
 import { defineDocumentType, makeSource } from "contentlayer/source-files"
-import rehypeShikiji from "rehype-shikiji"
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -52,7 +52,7 @@ export default makeSource({
   mdx: {
     rehypePlugins: [
       [
-        rehypeShikiji,
+        rehypeShiki,
         {
           themes: {
             light: "vitesse-light",

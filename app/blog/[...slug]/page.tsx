@@ -6,7 +6,7 @@ import { allBlogs } from "contentlayer/generated"
 import { MDX } from "@/components/mdx"
 
 interface BlogProps {
-  params: {
+  readonly params: {
     slug: string[]
   }
 }
@@ -41,7 +41,7 @@ export async function generateMetadata({
       images: [
         {
           url: "https://not.cy/og.png",
-          width: 1200,
+          width: 1_200,
           height: 630,
         },
       ],

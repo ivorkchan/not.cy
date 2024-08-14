@@ -8,7 +8,7 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": ["./*"],
-      "contentlayer/generated": ["./.contentlayer/generated"],
+      "contentlayer/generated": ["./.contentlayer/generated"]
     },
     "resolveJsonModule": true,
     "allowJs": true,
@@ -23,10 +23,10 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next",
-      },
-    ],
+        "name": "next"
+      }
+    ]
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["dist", "node_modules"],
+  "exclude": ["dist", "node_modules"]
 }

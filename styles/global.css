@@ -64,6 +64,7 @@
 /* typography */
 @layer base {
   * {
+    box-sizing: border-box;
     box-decoration-break: clone;
   }
 
@@ -142,6 +143,10 @@
     margin-block-start: 0;
   }
 
+  .prose p {
+    text-wrap: pretty;
+  }
+
   .prose h1,
   .prose h2,
   .prose h3,
@@ -217,6 +222,31 @@
     @apply bg-red-200 dark:bg-red-900/60;
   }
 
+  .step {
+    padding-left: 2rem;
+    border-left: 1px solid rgba(var(--muted), 0.8);
+  }
+
+  .step hr {
+    margin: 4rem 0;
+  }
+
+  .step .mytime::before {
+    position: absolute;
+    width: 2rem;
+    margin-left: -48.5px;
+    line-height: 1.75rem;
+    color: rgba(var(--muted), 0.8);
+    text-align: center;
+    content: "\25C9";
+    background: rgb(var(--bg));
+  }
+
+  /* .step .mytime:first-child,
+  .step .mytime:first-child::before {
+    color: rgb(220 20 60 / 80%);
+  } */
+
   /* mobile device */
   @media (width <= 1024px) {
     main {
@@ -232,6 +262,7 @@
     .main-nav {
       position: sticky;
       top: 0;
+      z-index: 1000;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -249,12 +280,28 @@
 
     .main-nav div {
       width: 100%;
-      padding: 1rem 1.25rem;
+    }
+
+    .main-nav div > a > span {
+      margin: 1rem 1.25rem;
     }
 
     article {
       width: 100%;
       padding: 4rem 1.25rem 8rem;
+    }
+
+    .step {
+      padding-left: 1.25rem;
+      margin-left: 7.5px;
+    }
+
+    .step hr {
+      margin: 2.5rem 0;
+    }
+
+    .step .mytime::before {
+      margin-left: -36.5px;
     }
   }
 

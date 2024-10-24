@@ -84,6 +84,7 @@ const font_mono = localFont({
   display: "swap",
 })
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
@@ -92,6 +93,7 @@ export const viewport = {
   width: "device-width",
 }
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export const metadata: Metadata = {
   metadataBase: new URL("https://not.cy"),
   keywords: ["Ivork Chan", "CHENG Yue", "Yue Cheng"],

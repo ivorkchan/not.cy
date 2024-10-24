@@ -2,48 +2,49 @@ import React from "react"
 
 import { allBlogs } from "contentlayer/generated"
 import { compareDesc } from "date-fns"
+import { Link } from "next-view-transitions"
 
 import type { Blog } from "contentlayer/generated"
 
 const IconForward = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    strokeWidth="2"
-    stroke="currentColor"
     fill="none"
+    height="24"
+    stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M0 0h24v24H0z" fill="none" stroke="none" />
     <path d="M15 14l4 -4l-4 -4" />
     <path d="M19 10h-11a4 4 0 1 0 0 8h1" />
   </svg>
 )
 
 function groupByYear(data: Blog[]): Record<string, Blog[]> {
-  const groups = data.reduce((groups: Record<string, Blog[]>, item: Blog) => {
+  const groupedData = data.reduce((acc: Record<string, Blog[]>, item: Blog) => {
     const year = item.slug.split("/")[2]
-    if (!groups[year]) {
-      groups[year] = []
+    if (!acc[year]) {
+      acc[year] = []
     }
 
-    groups[year].push(item)
-    return groups
+    acc[year].push(item)
+    return acc
   }, {})
 
-  for (const year in groups) {
-    groups[year].sort((a, b) => {
+  for (const year of Object.keys(groupedData)) {
+    groupedData[year].sort((a, b) => {
       const dateA = a.date ? new Date(a.date) : new Date(0)
       const dateB = b.date ? new Date(b.date) : new Date(0)
       return compareDesc(dateA, dateB)
     })
   }
 
-  return groups
+  return groupedData
 }
 
 function sortYears(years: Record<string, Blog[]>): string[] {
@@ -68,20 +69,20 @@ function ContentTable({ data, id }: ContentTableProps) {
             <tr key={`${yearIdx}-${itemIdx}`}>
               {itemIdx === 0 && (
                 <td
-                  rowSpan={itemsForYear.length}
                   className="w-[8ch] select-none lg:w-[12ch]"
+                  rowSpan={itemsForYear.length}
                 >
                   {year}
                 </td>
               )}
               <td>
-                <a
-                  href={item.slug}
+                <Link
                   className="light light-hover group flex gap-2 no-underline transition"
+                  href={item.slug}
                 >
                   {item.title}
                   <IconForward className="h-7 w-4 opacity-0 transition group-hover:opacity-100" />
-                </a>
+                </Link>
               </td>
             </tr>
           ))

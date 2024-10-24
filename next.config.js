@@ -1,11 +1,7 @@
-/** @type {import('next').NextConfig} */
+/* eslint-disable @typescript-eslint/no-require-imports */
+const { withContentlayer } = require("next-contentlayer")
+
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "pbs.twimg.com" },
-      { protocol: "https", hostname: "abs.twimg.com" },
-    ],
-  },
   async redirects() {
     return [
       {
@@ -16,7 +12,5 @@ const nextConfig = {
     ]
   },
 }
-
-const { withContentlayer } = require("next-contentlayer")
 
 module.exports = withContentlayer(nextConfig)

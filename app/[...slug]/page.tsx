@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 
 import { allPages } from "contentlayer/generated"
 
-import { MDX } from "@/components/mdx"
+import { Mdx } from "@/components/mdx"
 
 interface PageProps {
   readonly params: {
@@ -13,7 +13,7 @@ interface PageProps {
 
 async function getPageFromParams(params: PageProps["params"]) {
   const slug = params?.slug?.join("/")
-  const page = allPages.find((page) => page.slugAsParams === slug)
+  const page = allPages.find((pageItem) => pageItem.slugAsParams === slug)
 
   if (!page) {
     return null
@@ -22,6 +22,7 @@ async function getPageFromParams(params: PageProps["params"]) {
   return page
 }
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -54,6 +55,7 @@ export async function generateMetadata({
   }
 }
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export async function generateStaticParams(): Promise<PageProps["params"][]> {
   return allPages.map((page) => ({
     slug: page.slugAsParams.split("/"),
@@ -67,5 +69,5 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
-  return <MDX code={page.body.code} />
+  return <Mdx code={page.body.code} />
 }

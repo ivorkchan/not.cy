@@ -1,13 +1,15 @@
 // @ts-check
 
 import { fixupConfigRules, fixupPluginRules } from "@eslint/compat"
-import browser from "eslint-config-neon/flat/browser.js"
-import common from "eslint-config-neon/flat/common.js"
-import edge from "eslint-config-neon/flat/edge.js"
-import next from "eslint-config-neon/flat/next.js"
-import node from "eslint-config-neon/flat/node.js"
-import prettier from "eslint-config-neon/flat/prettier.js"
-import react from "eslint-config-neon/flat/react.js"
+import {
+  browser,
+  common,
+  edge,
+  next,
+  node,
+  prettier,
+  react
+} from "eslint-config-neon"
 import mdx from "eslint-plugin-mdx"
 import tailwindcss from "eslint-plugin-tailwindcss"
 import tslint from "typescript-eslint"

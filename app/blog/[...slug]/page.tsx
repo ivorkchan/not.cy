@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 
 import { allBlogs } from "contentlayer/generated"
 
-import { MDX } from "@/components/mdx"
+import { Mdx } from "@/components/mdx"
 
 interface BlogProps {
   readonly params: {
@@ -13,7 +13,7 @@ interface BlogProps {
 
 async function getBlogFromParams(params: BlogProps["params"]) {
   const slug = params?.slug?.join("/")
-  const blog = allBlogs.find((blog) => blog.slugAsParams === slug)
+  const blog = allBlogs.find((blogItem) => blogItem.slugAsParams === slug)
 
   if (!blog) {
     return null
@@ -22,6 +22,7 @@ async function getBlogFromParams(params: BlogProps["params"]) {
   return blog
 }
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export async function generateMetadata({
   params,
 }: BlogProps): Promise<Metadata> {
@@ -54,6 +55,7 @@ export async function generateMetadata({
   }
 }
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export async function generateStaticParams(): Promise<BlogProps["params"][]> {
   return allBlogs.map((blog) => ({
     slug: blog.slugAsParams.split("/"),
@@ -67,5 +69,5 @@ export default async function Blog({ params }: BlogProps) {
     notFound()
   }
 
-  return <MDX code={blog.body.code} />
+  return <Mdx code={blog.body.code} />
 }

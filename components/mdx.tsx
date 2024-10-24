@@ -1,13 +1,11 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 import { useMDXComponent as useMDX } from "next-contentlayer/hooks"
 import { Link } from "next-view-transitions"
 import Balancer from "react-wrap-balancer"
 
-import { autoSpacing } from "@/lib/heti"
-import { cn } from "@/lib/utils"
 import { Callout } from "@/components/mdx/Callout"
 import { Date, DateDistance } from "@/components/mdx/Date"
 import { BareGraphic, Graphic } from "@/components/mdx/Graphic"
@@ -36,7 +34,7 @@ const components = {
       return <Link href={href}>{props.children}</Link>
     }
 
-    return <a target="_blank" rel="noopener noreferrer" {...props} />
+    return <a rel="noopener noreferrer" target="_blank" {...props} />
   },
 }
 
@@ -44,20 +42,11 @@ interface MDXProps {
   readonly code: string
 }
 
-export function MDX({ code }: MDXProps) {
+export function Mdx({ code }: MDXProps) {
   const MDXContent = useMDX(code)
-  const [layoutPolished, setLayoutPolished] = useState<boolean>(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      autoSpacing().finally(() => setLayoutPolished(true))
-    }, 100)
-
-    return () => clearTimeout(timer)
-  })
 
   return (
-    <div className={cn("heti ", layoutPolished ? "block" : "hidden")}>
+    <div className="heti">
       <MDXContent components={components} />
     </div>
   )

@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react"
+import Image from "next/image"
 
 import Zoom from "react-medium-image-zoom"
 
@@ -25,10 +25,19 @@ interface GraphicProps {
   readonly alt: string
 }
 
-export function BareGraphic({ src }: GraphicProps) {
+export function BareGraphic({ src, alt }: GraphicProps) {
   const isLargeScreen = useScreenSize()
 
-  const image = <img src={src} alt={""} className="max-h-[64ch] rounded-md" />
+  const image = (
+    <Image
+      alt={alt}
+      className="rounded-md"
+      height={540}
+      placeholder="empty"
+      src={src}
+      width={960}
+    />
+  )
 
   return isLargeScreen ? <Zoom>{image}</Zoom> : image
 }
@@ -37,7 +46,14 @@ export function Graphic({ src, alt }: GraphicProps) {
   const isLargeScreen = useScreenSize()
 
   const image = (
-    <img src={src} alt={alt} className="mb-0 max-h-[64ch] rounded-md" />
+    <Image
+      alt={alt}
+      className="mb-0 rounded-md"
+      height={540}
+      placeholder="empty"
+      src={src}
+      width={960}
+    />
   )
 
   return (

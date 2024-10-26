@@ -1,37 +1,38 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { usePathname } from "next/navigation"
+import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-import { autoSpacing } from "@/lib/heti"
+import { autoSpacing } from "@/lib/heti";
 
 export default function Article({
   children,
 }: {
-  readonly children: React.ReactNode
+  readonly children: React.ReactNode;
 }) {
-  const pathname = usePathname()
-  const executedPathRef = useRef<string | null>(null)
+  const pathname = usePathname();
+  const [layoutPolished, setLayoutPolished] = useState<boolean>(false);
 
   useEffect(() => {
-    const applyAutoSpacing = async () => {
+    const handleAutoSpacing = async () => {
       try {
-        console.log(`Applying autoSpacing for ${pathname}...`)
-        await autoSpacing()
-        executedPathRef.current = pathname
-      } catch (error) {
-        console.error("Error applying autoSpacing:", error)
+        await autoSpacing();
+      } finally {
+        setLayoutPolished(true);
       }
-    }
+    };
 
-    if (executedPathRef.current !== pathname) {
-      applyAutoSpacing()
-    }
-  }, [pathname])
+    setLayoutPolished(false);
+    void handleAutoSpacing();
+  }, [pathname]);
 
   return (
-    <article className="prose prose-neutral dark:prose-invert">
+    <article
+      className={`prose prose-neutral dark:prose-invert ${
+        layoutPolished ? "block" : "hidden"
+      }`}
+    >
       {children}
     </article>
-  )
+  );
 }

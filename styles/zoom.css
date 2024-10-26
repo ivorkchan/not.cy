@@ -1,6 +1,5 @@
 [data-rmiz] {
   position: relative;
-  display: block;
 }
 
 [data-rmiz-ghost] {
@@ -24,6 +23,10 @@
   display: none;
 }
 
+[data-rmiz-modal]:focus-visible {
+  outline: none;
+}
+
 [data-rmiz-modal][open] {
   position: fixed;
   width: 100vw;
@@ -39,10 +42,6 @@
   border: 0;
 }
 
-[data-rmiz-modal]:focus-visible {
-  outline: none;
-}
-
 [data-rmiz-modal-overlay] {
   position: absolute;
   inset: 0;
@@ -50,7 +49,7 @@
 }
 
 [data-rmiz-modal-overlay="hidden"] {
-  background-color: transparent;
+  background-color: rgb(255 255 255 / 0%);
 }
 
 [data-rmiz-modal-overlay="visible"] {

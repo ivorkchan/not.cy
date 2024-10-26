@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es6",
     "jsx": "preserve",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
       "@/*": ["./*"],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "content-collections": ["./.content-collections/generated"]
     },
     "resolveJsonModule": true,
     "allowJs": true,

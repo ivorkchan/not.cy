@@ -1,36 +1,28 @@
-import { Metadata } from "next"
-import { notFound } from "next/navigation"
+import { notFound } from "next/navigation";
 
-import { allBlogs } from "contentlayer/generated"
+import type { Blog } from "content-collections";
+import type { Metadata } from "next";
 
-import { Mdx } from "@/components/mdx"
+import { getBlogFromParams } from "@/lib/contents";
+import { Mdx } from "@/components/mdx";
 
-interface BlogProps {
-  readonly params: {
-    slug: string[]
-  }
+type Params = Promise<{ slug: string[] }>;
+
+async function fetchBlogOrFail(params: Params): Promise<Blog> {
+  const blog = await getBlogFromParams(params);
+  if (!blog) notFound();
+  return blog;
 }
 
-async function getBlogFromParams(params: BlogProps["params"]) {
-  const slug = params?.slug?.join("/")
-  const blog = allBlogs.find((blogItem) => blogItem.slugAsParams === slug)
-
-  if (!blog) {
-    return null
-  }
-
-  return blog
-}
-
-/* eslint-disable-next-line react-refresh/only-export-components */
 export async function generateMetadata({
   params,
-}: BlogProps): Promise<Metadata> {
-  const blog = await getBlogFromParams(params)
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const blog = await fetchBlogOrFail(params);
 
-  if (!blog) {
-    return {}
-  }
+  const url = `https://not.cy/${blog.slug}`;
+  const imageUrl = "https://not.cy/og.png";
 
   return {
     title: blog.title,
@@ -38,36 +30,18 @@ export async function generateMetadata({
     openGraph: {
       title: blog.title,
       description: blog.description,
-      url: `https://not.cy${blog.slug}`,
-      images: [
-        {
-          url: "https://not.cy/og.png",
-          width: 1_200,
-          height: 630,
-        },
-      ],
+      url,
+      images: [{ url: imageUrl, width: 1_200, height: 630 }],
     },
     twitter: {
       title: blog.title,
       description: blog.description,
-      images: ["https://not.cy/og.png"],
+      images: [imageUrl],
     },
-  }
+  };
 }
 
-/* eslint-disable-next-line react-refresh/only-export-components */
-export async function generateStaticParams(): Promise<BlogProps["params"][]> {
-  return allBlogs.map((blog) => ({
-    slug: blog.slugAsParams.split("/"),
-  }))
-}
-
-export default async function Blog({ params }: BlogProps) {
-  const blog = await getBlogFromParams(params)
-
-  if (!blog) {
-    notFound()
-  }
-
-  return <Mdx code={blog.body.code} />
+export default async function Blog({ params }: { readonly params: Params }) {
+  const blog = await fetchBlogOrFail(params);
+  return <Mdx code={blog.mdx} />;
 }

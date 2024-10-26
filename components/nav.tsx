@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
+import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-import { motion, useScroll } from "framer-motion"
-import { Link } from "next-view-transitions"
+import { motion, useScroll } from "framer-motion";
+import { Link } from "next-view-transitions";
 
 const IconBack = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -26,7 +26,7 @@ const IconBack = (props: React.SVGProps<SVGSVGElement>) => (
       strokeWidth="0"
     />
   </svg>
-)
+);
 
 function NavLink({ children }: { readonly children: React.ReactNode }) {
   return (
@@ -34,25 +34,25 @@ function NavLink({ children }: { readonly children: React.ReactNode }) {
       <IconBack className="h-7 w-4" />
       <span>{children}</span>
     </span>
-  )
+  );
 }
 
 export function Nav() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
-  const isBlog = pathname === "/blog"
-  const isArticle = pathname.startsWith("/blog/")
+  const isBlog = pathname === "/blog";
+  const isArticle = pathname.startsWith("/blog/");
 
-  const { scrollY } = useScroll()
-  const [hasShadow, setHasShadow] = useState(false)
+  const { scrollY } = useScroll();
+  const [hasShadow, setHasShadow] = useState(false);
 
-  useEffect(() => {
-    const distance = scrollY.on("change", (y) => {
-      setHasShadow(y > 96)
-    })
-
-    return distance
-  }, [scrollY])
+  useEffect(
+    () =>
+      scrollY.on("change", (y) => {
+        setHasShadow(y > 96);
+      }),
+    [scrollY],
+  );
 
   return (
     <motion.nav
@@ -73,5 +73,5 @@ export function Nav() {
         )}
       </div>
     </motion.nav>
-  )
+  );
 }

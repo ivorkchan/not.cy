@@ -1,29 +1,28 @@
-import { MetadataRoute } from "next"
+import { allBlogs } from "content-collections";
 
-import { allBlogs } from "contentlayer/generated"
+import type { Blog } from "content-collections";
+import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticUrls = [
     { url: "https://not.cy/about" },
     { url: "https://not.cy/blog" },
-  ]
+  ];
 
-  const blogUrls = allBlogs.map((blog) => {
-    let lastModified
+  const blogUrls = allBlogs.map((blog: Blog) => {
+    let lastModified;
     try {
-      const date = new Date(blog.date ?? "")
-      lastModified = date.toISOString()
+      const date = new Date(blog.date ?? "");
+      lastModified = date.toISOString();
     } catch {
-      console.warn(`Invalid date in blog: ${blog}`)
+      console.warn(`Invalid date in blog: ${blog.slug}`);
     }
 
     return {
-      url: `https://not.cy${blog.slug}`,
+      url: `https://not.cy/blog/${blog.slug}`,
       lastModified,
-    }
-  })
+    };
+  });
 
-  const urls = [...staticUrls, ...blogUrls]
-
-  return urls
+  return [...staticUrls, ...blogUrls];
 }

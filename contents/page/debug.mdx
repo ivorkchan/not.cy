@@ -78,14 +78,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed nisl ex. 
 Code blocks use rehype plugin [shiki](https://shiki.style/packages/rehype).
 
 ```js
-var shell = require("mesh-viewer")()
-var mesh
+var shell = require("mesh-viewer")();
+var mesh;
 
 shell.on("viewer-init", function () {
-  mesh = shell.createMesh(require("bunny"))
-})
+  mesh = shell.createMesh(require("bunny"));
+});
 
 shell.on("gl-render", function () {
-  mesh.draw()
-})
+  mesh.draw();
+});
 ```

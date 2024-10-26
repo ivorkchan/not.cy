@@ -1,65 +1,74 @@
-import React, { useEffect, useState } from "react"
-import Image from "next/image"
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
-import Zoom from "react-medium-image-zoom"
+import Zoom from "react-medium-image-zoom";
+
+type CustomImageProps = {
+  alt: string;
+  className?: string;
+  height?: number;
+  layout?: string;
+  loading?: any;
+  placeholder?: any;
+  src: string;
+  width?: number;
+};
+
+const commonImageProps: Omit<CustomImageProps, "alt" | "src"> = {
+  height: 0,
+  width: 0,
+  layout: "responsive",
+  loading: "lazy",
+  placeholder: "empty",
+  className: "rounded-md object-contain",
+};
 
 function useScreenSize(threshold = 1_024) {
-  const [isLargeScreen, setIsLargeScreen] = useState(false)
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= threshold)
-    }
+      setIsLargeScreen(window.innerWidth >= threshold);
+    };
 
-    checkScreenSize()
+    checkScreenSize();
 
-    window.addEventListener("resize", checkScreenSize)
-    return () => window.removeEventListener("resize", checkScreenSize)
-  }, [threshold])
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, [threshold]);
 
-  return isLargeScreen
+  return isLargeScreen;
 }
 
-interface GraphicProps {
-  readonly src: string
-  readonly alt: string
-}
+type GraphicProps = {
+  readonly alt: string;
+  readonly src: string;
+};
 
 export function BareGraphic({ src, alt }: GraphicProps) {
-  const isLargeScreen = useScreenSize()
+  const isLargeScreen = useScreenSize();
 
-  const image = (
-    <Image
-      alt={alt}
-      className="rounded-md"
-      height={540}
-      placeholder="empty"
-      src={src}
-      width={960}
-    />
-  )
+  const image = <Image {...commonImageProps} alt={alt} src={src} />;
 
-  return isLargeScreen ? <Zoom>{image}</Zoom> : image
+  return isLargeScreen ? <Zoom>{image}</Zoom> : image;
 }
 
 export function Graphic({ src, alt }: GraphicProps) {
-  const isLargeScreen = useScreenSize()
+  const isLargeScreen = useScreenSize();
 
   const image = (
     <Image
+      {...commonImageProps}
       alt={alt}
-      className="mb-0 rounded-md"
-      height={540}
-      placeholder="empty"
+      className="mb-0 rounded-md object-contain"
       src={src}
-      width={960}
     />
-  )
+  );
 
   return (
     <figure>
       {isLargeScreen ? <Zoom>{image}</Zoom> : image}
       <figcaption>{alt}</figcaption>
     </figure>
-  )
+  );
 }

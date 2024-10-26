@@ -1,6 +1,4 @@
-// @ts-check
-
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat"
+import { fixupPluginRules } from "@eslint/compat";
 import {
   browser,
   common,
@@ -8,22 +6,27 @@ import {
   next,
   node,
   prettier,
-  react
-} from "eslint-config-neon"
-import mdx from "eslint-plugin-mdx"
-import tailwindcss from "eslint-plugin-tailwindcss"
-import tslint from "typescript-eslint"
+  react,
+  typescript,
+} from "eslint-config-neon";
+import pluginMdx from "eslint-plugin-mdx";
+import pluginTailwind from "eslint-plugin-tailwindcss"
+import merge from "lodash.merge";
 
-export default tslint.config(
+/**
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const config = [
   {
     ignores: [
       ".cache",
-      ".contentlayer",
+      ".content-collections",
       ".next",
       "build",
       "cache",
       "dist",
       "node_modules",
+      "next-env.d.ts",
       "package-lock.json",
       "package.json",
       "patches",
@@ -31,21 +34,45 @@ export default tslint.config(
       "public",
     ],
   },
-  ...fixupConfigRules(common),
-  ...fixupConfigRules(browser),
-  ...fixupConfigRules(node),
-  ...tslint.configs.recommended,
-  ...fixupConfigRules(react),
-  ...fixupConfigRules(next),
-  ...fixupConfigRules(edge),
-  ...fixupConfigRules(prettier),
   {
     plugins: {
-      tailwindcss: fixupPluginRules(tailwindcss),
-      mdx: fixupPluginRules(mdx),
+      mdx: fixupPluginRules(pluginMdx),
+      tailwind: fixupPluginRules(pluginTailwind)
     },
-    rules: {
-      "react/jsx-no-undef": "off",
-    },
-  }
-)
+  },
+  ...[
+    ...common,
+    ...browser,
+    ...node,
+    ...typescript,
+    ...react,
+    ...next,
+    ...edge,
+    ...prettier,
+  ].map((config) =>
+    merge(
+      config,
+      {
+        files: ["**/*.{ts,tsx}"],
+        settings: {
+          react: {
+            version: "detect",
+          },
+        },
+        languageOptions: {
+          parserOptions: {
+            project: "./tsconfig.json",
+          },
+        },
+      },
+      {
+        rules: {
+          "import-x/order": "off",
+          "react-refresh/only-export-components": "off",
+        },
+      },
+    ),
+  ),
+];
+
+export default config;

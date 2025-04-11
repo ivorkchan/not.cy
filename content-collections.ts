@@ -6,10 +6,7 @@ type Serializable = {
   [key: string]: string;
 };
 
-const transformWithMDX = async (
-  doc: any,
-  context: any,
-): Promise<Serializable> => {
+const transformMdx = async (doc: any, context: any): Promise<Serializable> => {
   const mdx = await compileMDX(context, doc, {
     rehypePlugins: [
       [
@@ -42,7 +39,7 @@ const createCollection = (name: string, directory: string) =>
     directory,
     include: "**/*.mdx",
     schema: baseSchema,
-    transform: transformWithMDX,
+    transform: transformMdx,
   });
 
 const Page = createCollection("Page", "contents/page");

@@ -1,8 +1,9 @@
 import typography from "@tailwindcss/typography";
 import colors from "tailwindcss/colors";
 
-/** @type {import('tailwindcss').Config} */
-const config = {
+import type { Config } from "tailwindcss";
+
+export default {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -120,7 +121,6 @@ const config = {
               padding: "1px 4px",
               borderRadius: "4px",
             },
-
             "code::before": {
               content: "none",
             },
@@ -150,6 +150,4 @@ const config = {
     },
   },
   plugins: [typography],
-};
-
-export default config;
+} satisfies Config;

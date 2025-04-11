@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 
+import { getPageFromParams } from "@/lib/mdxContents";
+
+import { MdxProvider } from "@/components/mdx/MdxProvider";
+
 import type { Page } from "content-collections";
 import type { Metadata } from "next";
-
-import { getPageFromParams } from "@/lib/contents";
-import { Mdx } from "@/components/mdx";
 
 type Params = Promise<{ slug: string[] }>;
 
@@ -43,5 +44,5 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { readonly params: Params }) {
   const page = await fetchPageOrFail(params);
-  return <Mdx code={page.mdx} />;
+  return <MdxProvider code={page.mdx} />;
 }

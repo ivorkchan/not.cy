@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-
 import { motion, useScroll } from "framer-motion";
 import { Link } from "next-view-transitions";
 
@@ -28,50 +27,52 @@ const IconBack = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-function NavLink({ children }: { readonly children: React.ReactNode }) {
+function NavLink({
+  href,
+  children,
+}: {
+  readonly children: React.ReactNode;
+  readonly href: string;
+}) {
   return (
-    <span className="light light-hover flex gap-2 transition">
-      <IconBack className="h-7 w-4" />
-      <span>{children}</span>
-    </span>
+    <Link className="no-underline" href={href}>
+      <span className="light light-hover flex gap-2 transition">
+        <IconBack className="h-7 w-4" />
+        <span>{children}</span>
+      </span>
+    </Link>
   );
 }
 
-export function Nav() {
+const Nav: React.FC = () => {
   const pathname = usePathname();
-
-  const isBlog = pathname === "/blog";
-  const isArticle = pathname.startsWith("/blog/");
-
   const { scrollY } = useScroll();
   const [hasShadow, setHasShadow] = useState(false);
 
-  useEffect(
-    () =>
-      scrollY.on("change", (y) => {
-        setHasShadow(y > 96);
-      }),
-    [scrollY],
-  );
+  scrollY.on("change", (y) => setHasShadow(y > 96));
+
+  const navLinks: { [key: string]: { href: string; label: string } } = {
+    "/blog": { href: "/about", label: "INFO" },
+    "/neodb": { href: "/about", label: "INFO" },
+    "/arena": { href: "/about", label: "INFO" },
+    "/blog/[slug]": { href: "/blog", label: "BLOG" },
+  };
+
+  const currentLink =
+    navLinks[pathname] ||
+    (pathname.startsWith("/blog/") ? navLinks["/blog/[slug]"] : null);
 
   return (
     <motion.nav
-      className={`main-nav ${
-        hasShadow ? "shadow lg:shadow-none" : "shadow-none"
-      }`}
+      className={`main-nav ${hasShadow ? "shadow lg:shadow-none" : "shadow-none"}`}
     >
       <div className="prose prose-neutral dark:prose-invert">
-        {isArticle && (
-          <Link className="no-underline" href="/blog">
-            <NavLink>BLOG</NavLink>
-          </Link>
-        )}
-        {isBlog && (
-          <Link className="no-underline" href="/about">
-            <NavLink>INFO</NavLink>
-          </Link>
+        {currentLink && (
+          <NavLink href={currentLink.href}>{currentLink.label}</NavLink>
         )}
       </div>
     </motion.nav>
   );
-}
+};
+
+export default Nav;

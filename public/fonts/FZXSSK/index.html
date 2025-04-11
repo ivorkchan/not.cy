@@ -137,16 +137,16 @@
         };
 
         const TimeAnalyze = (record, message) => {
-            record.pop(); // 最后一个记录是没有用的
+            record.pop();
             const total = record.reduce(
                 (col, cur) => col + cur.end - cur.start,
                 0
             );
             let chartDom;
-            // console.log(record, total);
+
 
             onMount(() => {
-                // 问就是渲染代价太大，等 1000ms 让浏览器冷静一下
+
                 setTimeout(() => {
                     let myChart = echarts.init(chartDom);
                     let option = {
@@ -206,10 +206,10 @@
         };
         const DataAnalyze = (data, message) => {
             const total = data.reduce((col, cur) => col + cur.size, 0);
-            // console.log(data, total);
+
             let chartDom;
             onMount(() => {
-                // 问就是渲染代价太大，等 1000ms 让浏览器冷静一下
+
                 setTimeout(() => {
                     let myChart = echarts.init(chartDom);
                     let option = {
@@ -335,7 +335,6 @@
             );
             createEffect(() => {
                 if (data()) {
-                    console.log(data().message);
                     document.body.style.fontFamily = `"${
                         getFontData(data().message).fontFamily ||
                         getFontData(data().message).preferredFamily

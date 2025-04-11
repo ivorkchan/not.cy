@@ -1,12 +1,12 @@
-import React from "react";
+"use client";
 
+import React, { useMemo } from "react";
 import { allBlogs } from "content-collections";
-import { compareDesc } from "date-fns";
 import { Link } from "next-view-transitions";
 
 import type { Blog } from "content-collections";
 
-const IconForward = (props: React.SVGProps<SVGSVGElement>) => (
+const IconForward: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     {...props}
     fill="none"
@@ -25,76 +25,57 @@ const IconForward = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-function groupByYear(blogs: Blog[]): Record<string, Blog[]> {
-  const groupedData = blogs.reduce(
-    (acc: Record<string, Blog[]>, item: Blog) => {
-      const year = item.slug.split("/")[0];
-      if (!acc[year]) {
-        acc[year] = [];
-      }
+const groupByYear = (blogs: Blog[]): Record<string, Blog[]> =>
+  blogs.reduce<Record<string, Blog[]>>((acc, blog) => {
+    const year = blog.slug.split("/")[0];
+    acc[year] = acc[year] || [];
+    acc[year].push(blog);
+    return acc;
+  }, {});
 
-      acc[year].push(item);
-      return acc;
-    },
-    {},
-  );
+const sortYears = (years: Record<string, Blog[]>): string[] =>
+  Object.keys(years).sort((a, b) => Number(b) - Number(a));
 
-  for (const year of Object.keys(groupedData)) {
-    groupedData[year].sort((a, b) => {
-      const dateA = a.date ? new Date(a.date) : new Date(0);
-      const dateB = b.date ? new Date(b.date) : new Date(0);
-      return compareDesc(dateA, dateB);
-    });
-  }
-
-  return groupedData;
-}
-
-function sortYears(years: Record<string, Blog[]>): string[] {
-  return Object.keys(years).sort((a, b) => Number(b) - Number(a));
-}
+const renderYearRows = (year: string, items: Blog[], yearIdx: number) =>
+  items.map((item, itemIdx) => (
+    <tr key={`${yearIdx}-${itemIdx}`}>
+      {itemIdx === 0 && (
+        <td className="w-[8ch] select-none lg:w-[12ch]" rowSpan={items.length}>
+          {year}
+        </td>
+      )}
+      <td>
+        <Link
+          className="light light-hover group flex gap-2 no-underline transition"
+          href={`/blog/${item.slug}`}
+        >
+          {item.title}
+          <IconForward className="h-7 w-4 opacity-0 transition group-hover:opacity-100" />
+        </Link>
+      </td>
+    </tr>
+  ));
 
 type ContentTableProps = {
   readonly data: Blog[];
   readonly id: string;
 };
 
-function ContentTable({ data, id }: ContentTableProps) {
-  const groupedByYear = groupByYear(data);
-  const sortedYears = sortYears(groupedByYear);
+const ContentTable: React.FC<ContentTableProps> = ({ data, id }) => {
+  const groupedByYear = useMemo(() => groupByYear(data), [data]);
+  const sortedYears = useMemo(() => sortYears(groupedByYear), [groupedByYear]);
 
   return (
     <table id={id}>
       <tbody>
-        {sortedYears.flatMap((year, yearIdx) => {
-          const itemsForYear = groupedByYear[year];
-          return itemsForYear.map((item, itemIdx) => (
-            <tr key={`${yearIdx}-${itemIdx}`}>
-              {itemIdx === 0 && (
-                <td
-                  className="w-[8ch] select-none lg:w-[12ch]"
-                  rowSpan={itemsForYear.length}
-                >
-                  {year}
-                </td>
-              )}
-              <td>
-                <Link
-                  className="light light-hover group flex gap-2 no-underline transition"
-                  href={`/blog/${item.slug}`}
-                >
-                  {item.title}
-                  <IconForward className="h-7 w-4 opacity-0 transition group-hover:opacity-100" />
-                </Link>
-              </td>
-            </tr>
-          ));
-        })}
+        {sortedYears.flatMap((year, idx) =>
+          renderYearRows(year, groupedByYear[year], idx),
+        )}
       </tbody>
     </table>
   );
-}
+};
 
-export function BlogList() {
-  return <ContentTable data={allBlogs} id="blog" />;
-}
+const BlogList: React.FC = () => <ContentTable data={allBlogs} id="blog" />;
+
+export default BlogList;

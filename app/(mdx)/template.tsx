@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { autoSpacing } from "@/lib/heti";
+import { autoSpacing } from "@/utils/heti";
 
-export default function Article({
+export default function Template({
   children,
 }: {
   readonly children: React.ReactNode;

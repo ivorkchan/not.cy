@@ -8,6 +8,7 @@
   "rules": {
     "color-function-notation": ["modern", { "ignore": ["with-var-inside"] }],
     "value-keyword-case": ["lower", { "camelCaseSvgKeywords": true }],
+    "at-rule-no-deprecated": null,
     "order/order": [
       [
         "custom-properties",

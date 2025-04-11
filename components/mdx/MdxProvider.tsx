@@ -1,15 +1,13 @@
 "use client";
 
 import React from "react";
-
-import { useMDXComponent as useMDX } from "@content-collections/mdx/react";
+import { useMDXComponent } from "@content-collections/mdx/react";
 import { Link } from "next-view-transitions";
 import Balancer from "react-wrap-balancer";
 
 import { Callout } from "@/components/mdx/Callout";
 import { Date, DateDistance } from "@/components/mdx/Date";
-import { BareGraphic, Graphic } from "@/components/mdx/Graphic";
-import { BlogList } from "@/components/bloglist";
+import { Graphic } from "@/components/mdx/Graphic";
 
 type HeadingProps = React.HTMLAttributes<HTMLHeadingElement>;
 type AnchorProps = React.HTMLProps<HTMLAnchorElement>;
@@ -18,9 +16,7 @@ const components = {
   Callout,
   Date,
   DateDistance,
-  BareGraphic,
   Graphic,
-  BlogList,
   h1: (props: HeadingProps) => (
     <h1 {...props}>
       <Balancer>{props.children}</Balancer>
@@ -44,8 +40,8 @@ type MDXProps = {
   readonly code: string;
 };
 
-export function Mdx({ code }: MDXProps) {
-  const MDXContent = useMDX(code);
+export function MdxProvider({ code }: MDXProps) {
+  const MDXContent = useMDXComponent(code);
 
   return (
     <div className="heti">

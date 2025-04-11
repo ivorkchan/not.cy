@@ -53,7 +53,7 @@ export function Callout({ children, type }: CalloutProps) {
         return <IconWarn className="h-7 w-4" />;
       case "error":
         return <IconError className="h-7 w-4" />;
-      default:
+      case "info":
         return <IconInfo className="h-7 w-4" />;
     }
   };

@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 
+import { getBlogFromParams } from "@/lib/mdxContents";
+
+import { MdxProvider } from "@/components/mdx/MdxProvider";
+
 import type { Blog } from "content-collections";
 import type { Metadata } from "next";
-
-import { getBlogFromParams } from "@/lib/contents";
-import { Mdx } from "@/components/mdx";
 
 type Params = Promise<{ slug: string[] }>;
 
@@ -41,7 +42,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Blog({ params }: { readonly params: Params }) {
+export default async function Page({ params }: { readonly params: Params }) {
   const blog = await fetchBlogOrFail(params);
-  return <Mdx code={blog.mdx} />;
+  return <MdxProvider code={blog.mdx} />;
 }

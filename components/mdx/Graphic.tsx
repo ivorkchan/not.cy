@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-
 import Zoom from "react-medium-image-zoom";
 
 type CustomImageProps = {
@@ -20,7 +19,7 @@ const commonImageProps: Omit<CustomImageProps, "alt" | "src"> = {
   layout: "responsive",
   loading: "lazy",
   placeholder: "empty",
-  className: "rounded-md object-contain",
+  className: "rounded-md mb-0 object-contain",
 };
 
 function useScreenSize(threshold = 1_024) {
@@ -45,25 +44,9 @@ type GraphicProps = {
   readonly src: string;
 };
 
-export function BareGraphic({ src, alt }: GraphicProps) {
-  const isLargeScreen = useScreenSize();
-
-  const image = <Image {...commonImageProps} alt={alt} src={src} />;
-
-  return isLargeScreen ? <Zoom>{image}</Zoom> : image;
-}
-
 export function Graphic({ src, alt }: GraphicProps) {
   const isLargeScreen = useScreenSize();
-
-  const image = (
-    <Image
-      {...commonImageProps}
-      alt={alt}
-      className="mb-0 rounded-md object-contain"
-      src={src}
-    />
-  );
+  const image = <Image {...commonImageProps} alt={alt} src={src} />;
 
   return (
     <figure>

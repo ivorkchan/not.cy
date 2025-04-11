@@ -78,8 +78,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed nisl ex. 
 Code blocks use rehype plugin [shiki](https://shiki.style/packages/rehype).
 
 ```js
-var shell = require("mesh-viewer")();
-var mesh;
+const shell = require("mesh-viewer")();
+let mesh;
 
 shell.on("viewer-init", function () {
   mesh = shell.createMesh(require("bunny"));

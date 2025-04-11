@@ -41,7 +41,7 @@ export const font_serif = localFont({
     },
   ],
   declarations: [
-    { prop: "size-adjust", value: "115%" },
+    { prop: "size-adjust", value: "108%" },
     { prop: "ascent-override", value: "85%" },
     { prop: "descent-override", value: "25%" },
     { prop: "line-gap-override", value: "0%" },

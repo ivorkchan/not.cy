@@ -1,22 +1,12 @@
-import { fixupPluginRules } from "@eslint/compat";
-import {
-  browser,
-  common,
-  edge,
-  next,
-  node,
-  prettier,
-  react,
-  typescript,
-} from "eslint-config-neon";
-import pluginMdx from "eslint-plugin-mdx";
-import pluginTailwind from "eslint-plugin-tailwindcss"
-import merge from "lodash.merge";
+import { FlatCompat } from "@eslint/eslintrc";
+import * as mdx from "eslint-plugin-mdx";
+import tailwind from "eslint-plugin-tailwindcss";
 
-/**
- * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
- */
-const config = [
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dirname,
+});
+
+const eslintConfig = [
   {
     ignores: [
       ".cache",
@@ -27,52 +17,21 @@ const config = [
       "dist",
       "node_modules",
       "next-env.d.ts",
-      "package-lock.json",
       "package.json",
       "patches",
       "pnpm-lock.yaml",
       "public",
     ],
   },
-  {
-    plugins: {
-      mdx: fixupPluginRules(pluginMdx),
-      tailwind: fixupPluginRules(pluginTailwind)
+  ...compat.config({
+    extends: ["next/core-web-vitals", "next/typescript", "prettier"],
+    rules: {
+      "react/jsx-no-undef": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
-  },
-  ...[
-    ...common,
-    ...browser,
-    ...node,
-    ...typescript,
-    ...react,
-    ...next,
-    ...edge,
-    ...prettier,
-  ].map((config) =>
-    merge(
-      config,
-      {
-        files: ["**/*.{ts,tsx}"],
-        settings: {
-          react: {
-            version: "detect",
-          },
-        },
-        languageOptions: {
-          parserOptions: {
-            project: "./tsconfig.json",
-          },
-        },
-      },
-      {
-        rules: {
-          "import-x/order": "off",
-          "react-refresh/only-export-components": "off",
-        },
-      },
-    ),
-  ),
+  }),
+  { ...mdx.flat },
+  ...tailwind.configs["flat/recommended"],
 ];
 
-export default config;
+export default eslintConfig;

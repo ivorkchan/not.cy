@@ -65,9 +65,9 @@
 [data-rmiz-modal-img] {
   position: absolute;
   cursor: zoom-out;
-  image-rendering: high-quality;
-  transition: transform 0.3s;
+  image-rendering: auto;
   transform-origin: 0 0;
+  transition: transform 0.3s;
 }
 
 @media (prefers-reduced-motion: reduce) {

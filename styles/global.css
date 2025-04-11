@@ -61,7 +61,7 @@
   }
 }
 
-/* typography */
+/* typography and reset */
 @layer base {
   * {
     box-sizing: border-box;
@@ -72,8 +72,8 @@
     font-optical-sizing: auto;
     hyphens: auto;
     touch-action: manipulation;
-    orphans: 3;
     widows: 3;
+    orphans: 3;
     font-synthesis: none;
     text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
@@ -105,18 +105,29 @@
     padding: 10rem 5ch;
     margin: 0 auto;
   }
+
+  .font-system {
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      sans-serif;
+  }
 }
 
 /* prose */
 @layer components {
   .main-grid {
     display: grid;
-    grid-template-columns: 16ch 1fr 16ch;
+    grid-template-columns: 16ch 1fr;
     column-gap: 4ch;
   }
 
-  .main-grid > * {
-    grid-column: 2;
+  .neodb-grid {
+    display: grid;
+    grid-template-columns: 1fr 16ch;
+    column-gap: 4ch;
   }
 
   #blog {
@@ -139,10 +150,6 @@
     @apply hover:text-neutral-700 hover:dark:text-neutral-300;
   }
 
-  .heti > *:first-child {
-    margin-block-start: 0;
-  }
-
   .prose p {
     text-wrap: pretty;
   }
@@ -157,6 +164,7 @@
       -apple-system,
       BlinkMacSystemFont,
       sans-serif;
+    text-wrap: balance;
   }
 
   .prose kbd {
@@ -224,7 +232,7 @@
 
   .step {
     padding-left: 2rem;
-    border-left: 1px solid rgba(var(--muted), 0.8);
+    border-left: 1px solid rgb(var(--muted), 0.8);
   }
 
   .step hr {
@@ -236,16 +244,25 @@
     width: 2rem;
     margin-left: -48.5px;
     line-height: 1.75rem;
-    color: rgba(var(--muted), 0.8);
+    color: rgb(var(--muted), 0.8);
     text-align: center;
     content: "\25C9";
     background: rgb(var(--bg));
   }
 
-  /* .step .mytime:first-child,
-  .step .mytime:first-child::before {
-    color: rgb(220 20 60 / 80%);
-  } */
+  .shadow-blur {
+    box-shadow: 0 0 20px 0 rgb(var(--muted), 0.8);
+  }
+
+  /* truncate for multilines */
+  .truncate-multiline {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 8;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+  }
 
   /* mobile device */
   @media (width < 1024px) {
@@ -253,10 +270,18 @@
       padding: 0;
     }
 
-    .main-grid {
+    .main-grid,
+    .neodb-grid {
       display: flex;
-      flex-direction: column;
       align-items: center;
+    }
+
+    .main-grid {
+      flex-direction: column;
+    }
+
+    .neodb-grid {
+      flex-direction: column-reverse;
     }
 
     .main-nav {
@@ -271,22 +296,25 @@
       max-width: 100dvw;
       margin-top: 6rem;
       background-image: radial-gradient(
-        rgba(var(--bg), 0.8) 1px,
+        rgb(var(--bg), 0.8) 1px,
         rgb(var(--bg)) 1px
       );
       background-size: 4px 4px;
       backdrop-filter: blur(2px);
     }
 
-    .main-nav div {
+    .main-nav div,
+    .neodb-grid {
       width: 100%;
+      max-width: var(--prose-width);
     }
 
     .main-nav div > a > span {
       margin: 1rem 1.25rem;
     }
 
-    article {
+    article,
+    .neodb-grid {
       width: 100%;
       padding: 4rem 1.25rem 8rem;
     }
@@ -307,10 +335,10 @@
 
   /* desktop device */
   @media (width >= 1024px) {
-    .main-nav {
+    .main-nav,
+    .neodb-selector {
       position: sticky;
       top: 10rem;
-      grid-column: 1;
       height: fit-content;
     }
   }
@@ -319,34 +347,34 @@
 /* view transitions */
 @layer base {
   ::view-transition-old(root) {
-    animation: 0.6s ease both blur-out;
+    animation: 0.5s ease both blur-out;
   }
 
   ::view-transition-new(root) {
-    animation: 0.6s ease both blur-in;
+    animation: 0.5s ease both blur-in;
   }
 
   @keyframes blur-out {
     from {
-      filter: blur(0);
       opacity: 1;
+      filter: blur(0);
     }
 
     to {
-      filter: blur(6px);
       opacity: 0;
+      filter: blur(6px);
     }
   }
 
   @keyframes blur-in {
     from {
-      filter: blur(6px);
       opacity: 0;
+      filter: blur(6px);
     }
 
     to {
-      filter: blur(0);
       opacity: 1;
+      filter: blur(0);
     }
   }
 }

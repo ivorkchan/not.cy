@@ -1,15 +1,15 @@
 import React from "react";
-
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ViewTransitions } from "next-view-transitions";
 
-import type { Metadata } from "next";
+import { cn } from "@/utils/clsx";
+import { font_mono, font_sans, font_serif } from "@/utils/font";
 
-import { font_mono, font_sans, font_serif } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
-import { Nav } from "@/components/nav";
-import { Provider } from "@/components/provider";
+import Nav from "@/components/ui/Nav";
+import Provider from "@/components/ui/Provider";
+
+import type { Metadata } from "next";
 
 import "@/public/fonts/HYXinRenWenSong55W/result.css";
 import "@/public/fonts/FZXSSK/result.css";
